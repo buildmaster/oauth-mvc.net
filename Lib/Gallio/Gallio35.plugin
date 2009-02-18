@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <?if NET35?>
+  <gallio>
+    <assemblies>
+      <assembly file="Gallio35.dll" />
+    </assemblies>
+
+    <runtime>
+      <components>
+        <component id="Core.ExpressionFormattingRule"
+                   service="Gallio.Framework.Formatting.IFormattingRule, Gallio"
+                   type="Gallio.Framework.Formatting.ExpressionFormattingRule, Gallio35" />
+      </components>
+    </runtime>
+  </gallio>
+  <?end?>
+</configuration>

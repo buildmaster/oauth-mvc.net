@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ninject.Framework.Mvc</name>
+    </assembly>
+    <members>
+        <member name="T:Ninject.Framework.Mvc.AutoControllerModule">
+            <summary>
+            A module that automatically loads and registers all MVC controllers in specific assemblies.
+            </summary>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.AutoControllerModule.#ctor(System.Collections.Generic.IEnumerable{System.Reflection.Assembly})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ninject.Framework.Mvc.AutoControllerModule"/> class.
+            </summary>
+            <param name="assemblies">The assemblies to scan for controllers.</param>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.AutoControllerModule.#ctor(System.Reflection.Assembly[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ninject.Framework.Mvc.AutoControllerModule"/> class.
+            </summary>
+            <param name="assemblies">The assemblies to scan for controllers.</param>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.AutoControllerModule.#ctor(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ninject.Framework.Mvc.AutoControllerModule"/> class.
+            </summary>
+            <param name="assemblyNames">The names of assemblies which should be scanned for controllers.</param>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.AutoControllerModule.#ctor(System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ninject.Framework.Mvc.AutoControllerModule"/> class.
+            </summary>
+            <param name="assemblyNames">The names of assemblies which should be scanned for controllers.</param>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.AutoControllerModule.Load">
+            <summary>
+            Loads the module into the kernel.
+            </summary>
+        </member>
+        <member name="T:Ninject.Framework.Mvc.KernelContainer">
+            <summary>
+            A static container for the <see cref="T:Ninject.Framework.Mvc.NinjectHttpApplication"/>'s kernel.
+            </summary>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.KernelContainer.Inject(System.Object)">
+            <summary>
+            Injects the specified instance by using the container's kernel.
+            </summary>
+            <param name="instance">The instance to inject.</param>
+        </member>
+        <member name="P:Ninject.Framework.Mvc.KernelContainer.Kernel">
+            <summary>
+            Gets or sets the kernel that is used in the application.
+            </summary>
+        </member>
+        <member name="T:Ninject.Framework.Mvc.NinjectControllerFactory">
+            <summary>
+            Creates <see cref="T:System.Web.Mvc.IController"/>s by activating them via the Ninject <see cref="T:Ninject.Core.IKernel"/>.
+            </summary>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.NinjectControllerFactory.CreateController(System.Web.Routing.RequestContext,System.String)">
+            <summary>
+            Creates the controller described by the request.
+            </summary>
+            <param name="context">The request context.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <returns>The activated controller.</returns>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.NinjectControllerFactory.ReleaseController(System.Web.Mvc.IController)">
+            <summary>
+            Releases the controller.
+            </summary>
+            <param name="controller">The controller.</param>
+        </member>
+        <member name="T:Ninject.Framework.Mvc.NinjectHttpApplication">
+            <summary>
+            A <see cref="T:System.Web.HttpApplication"/> that creates a <see cref="T:Ninject.Core.IKernel"/> for use throughout
+            the application.
+            </summary>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.NinjectHttpApplication.Application_Start">
+            <summary>
+            Initializes the application.
+            </summary>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.NinjectHttpApplication.Application_End">
+            <summary>
+            Finalizes the application.
+            </summary>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.NinjectHttpApplication.OnApplicationStarted">
+            <summary>
+            Called when the application starts.
+            </summary>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.NinjectHttpApplication.OnApplicationEnded">
+            <summary>
+            Called when the application ends.
+            </summary>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.NinjectHttpApplication.RegisterRoutes(System.Web.Routing.RouteCollection)">
+            <summary>
+            Register routes for the application.
+            </summary>
+            <param name="routes">The route collection.</param>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.NinjectHttpApplication.CreateKernel">
+            <summary>
+            Creates a Ninject kernel that will be used to inject objects.
+            </summary>
+            <returns>The created kernel.</returns>
+        </member>
+    </members>
+</doc>
