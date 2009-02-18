@@ -1,0 +1,14 @@
+This project is work in progress, designed to allow you to turn and MS ASP.net MVC site into and OAuth Provider.
+
+Requires the use of Dependency Injection (Built for Ninject)
+Requires implementation of
+  ITokenGenerator
+  IAccessToken
+  IRequestToken
+  IOAuthRepository
+  IConsumer
+  
+See the sample for examples (the classes are in global.asax.cs)
+
+
+First published by Owen Evans, http://www.bgeek.net
