@@ -65,12 +65,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Binders\OAuthConsumerBinderSpecifications.cs" />
     <Compile Include="Controllers\OAuthConsumerControllerSpecifications.cs" />
     <Compile Include="Filters\OAuthSecuredAttributeSpecifications.cs" />
     <Compile Include="Helpers\TestController.cs" />
     <Compile Include="OAuthRequestSpecifications.cs" />
     <Compile Include="OAuthServiceSpecifications.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Results\OAuthUnauthorizedResultSpecifications.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\OAuth.MVC.Library\OAuth.MVC.Library.csproj">

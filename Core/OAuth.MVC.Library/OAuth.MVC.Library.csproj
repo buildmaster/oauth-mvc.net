@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject.Core, Version=1.5.0.135, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Ninject\Ninject.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
@@ -55,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Binders\OAuthBinder.cs" />
     <Compile Include="Configuration\OAuthConfigurationSection.cs" />
     <Compile Include="Controllers\OAuthController.cs" />
     <Compile Include="Errors\OAuthRequestError.cs" />
@@ -78,6 +83,7 @@
     <Compile Include="Results\OAuthRequestErrorResult.cs" />
     <Compile Include="Results\OAuthTokenResult.cs" />
     <Compile Include="Errors\BadRequestErrors.cs" />
+    <Compile Include="Results\OAuthUnauthorizedResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

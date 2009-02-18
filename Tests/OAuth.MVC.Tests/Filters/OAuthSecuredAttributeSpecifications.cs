@@ -6,6 +6,7 @@ using System.Web.Routing;
 using OAuth.MVC.Library;
 using OAuth.MVC.Library.Filters;
 using OAuth.MVC.Library.Interfaces;
+using OAuth.MVC.Library.Results;
 using OAuth.MVC.Tests.Helpers;
 using Xunit;
 using Rhino.Mocks;
@@ -17,21 +18,12 @@ namespace OAuth.MVC.Tests.Filters
   {
     private HttpResponseBase responseMock;
     readonly NameValueCollection headers = new NameValueCollection();
+      private AuthorizationContext filterContext;
 
-    [Fact]
-    public void www_authenticate_header_should_be_set()
+      [Fact] 
+      public void result_should_be_set_to_unauthorized()
     {
-      Assert.NotNull(headers["WWW-Authenticate"]);
-    }
-    [Fact]
-    public void the_www_authenticate_header_should_be_set_to_the_correct_realm()
-    {
-      Assert.Equal("OAuth realm=\"http://testsite.com\"", headers["WWW-Authenticate"]);
-    }
-    [Fact]
-    public void status_message_should_be_unauthorised()
-    {
-      responseMock.AssertWasCalled(response => response.StatusCode = 401);
+      Assert.IsType<OAuthUnauthorizedResult>(filterContext.Result);
     }
 
     public void SetFixture(MockRepository mocks)
@@ -45,9 +37,8 @@ namespace OAuth.MVC.Tests.Filters
       var parameters = new NameValueCollection();
       var uri = new Uri("http://someaddress.com");
       var httpMethod = "GET";
-      var filterContext = new AuthorizationContext(new ControllerContext(httpContextMock, new RouteData(), new TestController()));
+      filterContext = new AuthorizationContext(new ControllerContext(httpContextMock, new RouteData(), new TestController()));
 
-      httpContextMock.Stub(httpContext => httpContext.Response).Return(responseMock);
       httpContextMock.Stub(httpContext => httpContext.Request).Return(httpRequestMock);
       httpRequestMock.Stub(httpRequest => httpRequest.Params).Return(parameters);
       httpRequestMock.Stub(httpRequest => httpRequest.Url).Return(uri);

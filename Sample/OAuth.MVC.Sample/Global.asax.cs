@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Web.Mvc;
+using Codeclimber.Ninject.FilterInjector;
 using Ninject.Conditions;
 using System.Web.Routing;
 using Ninject.Core;
@@ -32,7 +34,8 @@ namespace OAuth.MVC.Sample
 
     protected override IKernel CreateKernel()
     {
-      return new StandardKernel(new SampleApplicationNinjectModule());
+
+      return new StandardKernel(new AutoControllerModuleWithFilters(Assembly.GetExecutingAssembly(),typeof(OAuthController).Assembly), new SampleApplicationNinjectModule());
     }
 
    
@@ -42,12 +45,6 @@ namespace OAuth.MVC.Sample
   {
     public override void Load()
     {
-      Bind<IController>().To<OAuthController>().Only(
-        When.Context.Variable("controllerName").Matches(
-          controllerName => controllerName.ToString().Equals("oauth", StringComparison.InvariantCultureIgnoreCase)));
-      Bind<IController>().To<AccountController>().Only(
-        When.Context.Variable("controllerName").Matches(
-          controllerName => controllerName.ToString().Equals("account", StringComparison.InvariantCultureIgnoreCase)));
       Bind<IOAuthService>().To<OAuthService>();
       Bind<IOAuthRepository>().ToConstant(new SampleOAuthRepository());
       Bind<ITokenGenerator>().ToConstant(new SimpleGuidTokenGenerator());

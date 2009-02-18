@@ -1,18 +1,19 @@
 using System;
 using System.Net;
 using System.Web.Mvc;
+using Ninject.Core;
 using OAuth.MVC.Library.Configuration;
 using OAuth.MVC.Library.Interfaces;
+using OAuth.MVC.Library.Results;
 
 namespace OAuth.MVC.Library.Filters
 {
-  public class OAuthSecuredAttribute : FilterAttribute, IAuthorizationFilter
+  public class OAuthSecuredAttribute : ActionFilterAttribute, IAuthorizationFilter
   {
-    public IOAuthService OAuthService
-    {
-      get;
-      set;
-    }
+    [Inject]
+    public IOAuthService OAuthService { get; set; }
+
+
     public void OnAuthorization(AuthorizationContext filterContext)
     {
       if (OAuthService == null)
@@ -24,11 +25,9 @@ namespace OAuth.MVC.Library.Filters
                                                    request.Params, OAuthConstants.EndPointType.AccessRequest);
       if (!oauthRequest.IsValid())
       {
-        filterContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-        filterContext.HttpContext.Response.Headers.Add("WWW-Authenticate",
-                                                       string.Format("OAuth {0}=\"{1}\"",
-                                                                     OAuthConstants.PARAM_OAUTH_REALM,
-                                                                     OAuthConfigurationSection.Read().Realm));
+        filterContext.Result = new OAuthUnauthorizedResult();
+
+        return;
       }
     }
   }
