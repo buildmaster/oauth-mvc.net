@@ -47,7 +47,7 @@ namespace OAuth.MVC.Tests.Filters
       responseMock.Stub(httpResponse => httpResponse.Headers).Return(headers);
 
       oauthServiceMock.Stub(
-        service => service.BuildRequest(uri, httpMethod, parameters, OAuthConstants.EndPointType.AccessRequest)).
+        service => service.BuildRequest(uri, httpMethod, parameters.ToPairs(), OAuthConstants.EndPointType.AccessRequest)).
         Return(requestMock);
       mocks.ReplayAll();
       requestMock.Stub(request => request.IsValid()).Return(false);
@@ -89,7 +89,7 @@ namespace OAuth.MVC.Tests.Filters
 
         
         oauthServiceMock.Stub(
-          service => service.BuildRequest(uri, httpMethod, parameters, OAuthConstants.EndPointType.AccessRequest)).
+          service => service.BuildRequest(uri, httpMethod, parameters.ToPairs(), OAuthConstants.EndPointType.AccessRequest)).
           Return(requestMock);
         mocks.ReplayAll();
         requestMock.Stub(request => request.IsValid()).Return(true);

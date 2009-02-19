@@ -53,7 +53,7 @@ namespace OAuth.MVC.Tests.Controllers
           httpRequestMock.Stub(request => request.Url).Return(url);
 
 
-          oauthServiceMock.Stub(oauthService => oauthService.BuildRequest(url, httpMethod, parameters, OAuthConstants.EndPointType.RequestTokenRequest)).Return(oauthRequestMock);
+          oauthServiceMock.Stub(oauthService => oauthService.BuildRequest(url, httpMethod, parameters.ToPairs(), OAuthConstants.EndPointType.RequestTokenRequest)).Return(oauthRequestMock);
           oauthRequestMock.Stub(oauthRequest => oauthRequest.Consumer).Return(consumerMock);
           oauthRequestMock.Stub(oauthRequest => oauthRequest.IsValid()).Return(ValidRequest);
 
@@ -454,7 +454,7 @@ namespace OAuth.MVC.Tests.Controllers
           httpRequestMock.Stub(request => request.Url).Return(url);
 
 
-          oauthServiceMock.Stub(oauthService => oauthService.BuildRequest(url, httpMethod, parameters, OAuthConstants.EndPointType.AccessTokenRequest)).Return(oauthRequestMock);
+          oauthServiceMock.Stub(oauthService => oauthService.BuildRequest(url, httpMethod, parameters.ToPairs(), OAuthConstants.EndPointType.AccessTokenRequest)).Return(oauthRequestMock);
           oauthRequestMock.Stub(oauthRequest => oauthRequest.Consumer).Return(consumerMock);
           oauthRequestMock.Stub(oauthRequest => oauthRequest.IsValid()).Return(ValidRequest);
           oauthRequestMock.Stub(oauthRequest => oauthRequest.RequestToken).Return(requestTokenMock);

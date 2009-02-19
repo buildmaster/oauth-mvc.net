@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 
 namespace OAuth.MVC.Library.Interfaces
@@ -16,7 +17,7 @@ namespace OAuth.MVC.Library.Interfaces
     /// <param name="parameters">The parameters.</param>
     /// <param name="EndPointType">EndPoint type of the request.</param>
     /// <returns></returns>
-    IOAuthRequest BuildRequest(Uri url, string httpMethod, NameValueCollection parameters, OAuthConstants.EndPointType EndPointType);
+    IOAuthRequest BuildRequest(Uri url, string httpMethod, IEnumerable<KeyValuePair<string, string>> parameters, OAuthConstants.EndPointType EndPointType);
     /// <summary>
     /// Generates a request token for the consumer.
     /// </summary>

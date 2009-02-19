@@ -1,11 +1,9 @@
 using System;
-using System.Net;
 using System.Web.Mvc;
 using Ninject.Core;
-using OAuth.MVC.Library.Configuration;
 using OAuth.MVC.Library.Interfaces;
 using OAuth.MVC.Library.Results;
-
+using System.Linq;
 namespace OAuth.MVC.Library.Filters
 {
   public class OAuthSecuredAttribute : ActionFilterAttribute, IAuthorizationFilter
@@ -22,7 +20,7 @@ namespace OAuth.MVC.Library.Filters
       }
       var request = filterContext.HttpContext.Request;
       var oauthRequest = OAuthService.BuildRequest(filterContext.HttpContext.Request.Url, request.HttpMethod,
-                                                   request.Params, OAuthConstants.EndPointType.AccessRequest);
+                                                   request.Params.ToPairs().Concat(Helpers.GetAuthHeaderParameters(request.Headers)), OAuthConstants.EndPointType.AccessRequest);
       if (!oauthRequest.IsValid())
       {
         filterContext.Result = new OAuthUnauthorizedResult();

@@ -23,7 +23,7 @@ namespace OAuth.MVC.Tests
       {
         var oAuthRepositoryMock = mocks.DynamicMock<IOAuthRepository>();
         IOAuthService oauthService = new OAuthService(oAuthRepositoryMock, null);
-        request = oauthService.BuildRequest(new Uri("http://someserver.com/somepath"), "POST", new NameValueCollection(), OAuthConstants.EndPointType.RequestTokenRequest);
+        request = oauthService.BuildRequest(new Uri("http://someserver.com/somepath"), "POST", new NameValueCollection().ToPairs(), OAuthConstants.EndPointType.RequestTokenRequest);
       }
     }
     public class when_service_is_asked_to_generate_a_request_token : IUseFixture<MockRepository>

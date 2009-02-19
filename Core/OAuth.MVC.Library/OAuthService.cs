@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using OAuth.MVC.Library.Interfaces;
 
@@ -15,7 +16,7 @@ namespace OAuth.MVC.Library
       this.tokenGenerator = tokenGenerator;
     }
 
-    public IOAuthRequest BuildRequest(Uri url, string httpMethod, NameValueCollection parameters, OAuthConstants.EndPointType EndPointType)
+    public IOAuthRequest BuildRequest(Uri url, string httpMethod, IEnumerable<KeyValuePair<string,string>> parameters, OAuthConstants.EndPointType EndPointType)
     {
       return new OAuthRequest(url, httpMethod, parameters, oAuthRepository,EndPointType);
     }

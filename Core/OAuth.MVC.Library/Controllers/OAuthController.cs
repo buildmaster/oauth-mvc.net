@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using System.Web.Mvc;
 using OAuth.MVC.Library.Interfaces;
 using OAuth.MVC.Library.Results;
@@ -36,7 +39,7 @@ namespace OAuth.MVC.Library.Controllers
     
     private IOAuthRequest CreateRequest(OAuthConstants.EndPointType endPointType)
     {
-      return oauthService.BuildRequest(Request.Url, Request.HttpMethod, Request.Params,endPointType);
+      return oauthService.BuildRequest(Request.Url, Request.HttpMethod, Request.Params.ToPairs().Concat(Helpers.GetAuthHeaderParameters(Request.Headers)),endPointType);
     }
 
     

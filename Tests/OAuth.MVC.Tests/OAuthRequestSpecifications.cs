@@ -16,7 +16,7 @@ namespace OAuth.MVC.Tests
       #region defaults
       //oauth_consumer_key=dpf43f3p2l4k3l03&oauth_signature_method=PLAINTEXT&oauth_signature=kd94hf93k423kf44%26&oauth_timestamp=1191242090&oauth_nonce=hsu94j3884jdopsl&oauth_version=1.0
       protected const string DefaultHttpMethod = "POST";
-      protected const string DefaultUriString = "https://photos.example.net/request_token";
+      protected const string DefaultUriString = "https://photos.example.net/request_token?oauth_consumer_key=dpf43f3p2l4k3l03&oauth_signature_method=PLAINTEXT&oauth_signature=kd94hf93k423kf44%26";
       private const string Nonce = "hsu94j3884jdopsl";
       private const string Timestamp = "1191242090";
       private const string DefaultConsumerSecret = "kd94hf93k423kf44";

@@ -95,7 +95,7 @@ namespace OAuth.MVC.Tests.Binders
         mockHttpRequest.Stub(request => request.Url).Return(url);
 
         mockOAuthService.Stub(
-          service => service.BuildRequest(url, httpMethod, parameters, OAuthConstants.EndPointType.AccessRequest)).Return(mockOAuthRequest);
+          service => service.BuildRequest(url, httpMethod, parameters.ToPairs(), OAuthConstants.EndPointType.AccessRequest)).Return(mockOAuthRequest);
 
         mockOAuthRequest.Stub(request => request.Consumer).Return(mockConsumer);
         mockOAuthRequest.Stub(request => request.IsValid()).Return(OAuthRequestValid);

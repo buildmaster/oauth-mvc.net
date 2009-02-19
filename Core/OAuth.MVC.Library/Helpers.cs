@@ -16,6 +16,9 @@ namespace OAuth.MVC.Library
 
       return collection.Cast<string>().Select(key => new KeyValuePair<string, string>(key, collection[key]));
     }
-
+    public static IEnumerable<KeyValuePair<string, string>> GetAuthHeaderParameters(NameValueCollection headers)
+    {
+      throw new System.NotImplementedException();
+    }
   }
 }
