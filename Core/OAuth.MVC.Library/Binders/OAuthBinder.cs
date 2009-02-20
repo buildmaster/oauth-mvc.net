@@ -14,7 +14,7 @@ namespace OAuth.MVC.Library.Binders
     public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
     {
       var httpRequest = controllerContext.HttpContext.Request;
-      var oauthRequest = OAuthService.BuildRequest(httpRequest.Url, httpRequest.HttpMethod, httpRequest.Params.ToPairs().Concat(Helpers.GetAuthHeaderParameters(httpRequest.Headers)),
+      var oauthRequest = OAuthService.BuildRequest(httpRequest.Url, httpRequest.HttpMethod, httpRequest.Params,httpRequest.Headers,
                                                    OAuthConstants.EndPointType.AccessRequest);
       if (bindingContext.ModelType==typeof(IConsumer))
       {

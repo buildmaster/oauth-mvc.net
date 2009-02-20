@@ -12,12 +12,13 @@ namespace OAuth.MVC.Library.Interfaces
     /// <summary>
     /// Builds an oauth request request.
     /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="httpMethod">The HTTP method.</param>
-    /// <param name="parameters">The parameters.</param>
+    /// <param name="url">The URL of the request.</param>
+    /// <param name="httpMethod">The HTTP method of the request.</param>
+    /// <param name="parameters">The parameters from the request.</param>
+    /// <param name="Headers">The headers from the request.</param>
     /// <param name="EndPointType">EndPoint type of the request.</param>
     /// <returns></returns>
-    IOAuthRequest BuildRequest(Uri url, string httpMethod, IEnumerable<KeyValuePair<string, string>> parameters, OAuthConstants.EndPointType EndPointType);
+    IOAuthRequest BuildRequest(Uri url, string httpMethod, NameValueCollection parameters, NameValueCollection Headers, OAuthConstants.EndPointType EndPointType);
     /// <summary>
     /// Generates a request token for the consumer.
     /// </summary>

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Web;
 using OAuth.MVC.Library.Errors;
 using OAuth.MVC.Library.Interfaces;
 
@@ -139,7 +140,7 @@ namespace OAuth.MVC.Library
       }
      
       var expectedSignature = GenerateSignature(URL, ConsumerKey, ConsumerSecret, Token, tokenSecret, HttpMethod, TimeStamp, Nonce, SignatureType, out normalisedUrl, out normalisedRequetParameters);
-      if(expectedSignature==Signature)
+      if (expectedSignature == Signature)
       {
         Consumer.SaveNonce(TimeStamp,Nonce);
         return true;
@@ -149,13 +150,13 @@ namespace OAuth.MVC.Library
       return false;
     }
 
-    private SignatureTypes SignatureType { get; set; }
-    private string Nonce { get; set; }
-    private string TimeStamp { get; set; }
-    private string HttpMethod { get; set; }
-    private string Token { get; set; }
-    private string ConsumerKey { get; set; }
-    private Uri URL { get; set; }
+    internal SignatureTypes SignatureType { get; set; }
+    internal string Nonce { get; set; }
+    internal string TimeStamp { get; set; }
+    internal string HttpMethod { get; set; }
+    internal string Token { get; set; }
+    internal string ConsumerKey { get; set; }
+    internal Uri URL { get; set; }
     public IOAuthRequestError Error { get; set; }
     public IRequestToken RequestToken { get; set; }
 
@@ -168,9 +169,10 @@ namespace OAuth.MVC.Library
         if (value != "1.0")
           Error = new UnsuportedParameterError();
       }
+      
     }
 
-    private string Signature { get; set; }
+    internal string Signature { get; set; }
     private string ConsumerSecret
     {
       get { return Consumer.SecretKey; }

@@ -83,6 +83,7 @@ namespace OAuth.MVC.Tests.Binders
         var mockOAuthRequest = mocks.DynamicMock<IOAuthRequest>();
 
         var parameters = new NameValueCollection();
+        var headers = new NameValueCollection();
         var controllerContext = new ControllerContext(mockHttpContext, new RouteData(), mockController);
         var bindingContext = new ModelBindingContext {ModelType = ModelType};
         var url = new Uri("http://somewhere.com");
@@ -93,9 +94,9 @@ namespace OAuth.MVC.Tests.Binders
         mockHttpRequest.Stub(request => request.HttpMethod).Return(httpMethod);
         mockHttpRequest.Stub(request => request.Params).Return(parameters);
         mockHttpRequest.Stub(request => request.Url).Return(url);
-
+        mockHttpRequest.Stub(request => request.Headers).Return(headers);
         mockOAuthService.Stub(
-          service => service.BuildRequest(url, httpMethod, parameters.ToPairs(), OAuthConstants.EndPointType.AccessRequest)).Return(mockOAuthRequest);
+          service => service.BuildRequest(url, httpMethod, parameters,headers, OAuthConstants.EndPointType.AccessRequest)).Return(mockOAuthRequest);
 
         mockOAuthRequest.Stub(request => request.Consumer).Return(mockConsumer);
         mockOAuthRequest.Stub(request => request.IsValid()).Return(OAuthRequestValid);

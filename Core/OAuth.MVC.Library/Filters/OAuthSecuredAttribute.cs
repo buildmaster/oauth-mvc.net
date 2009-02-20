@@ -19,8 +19,8 @@ namespace OAuth.MVC.Library.Filters
         throw new NullReferenceException("OAuthService needs to be set for OAuthSecuredAttribute, please use an IOC Container to do this");
       }
       var request = filterContext.HttpContext.Request;
-      var oauthRequest = OAuthService.BuildRequest(filterContext.HttpContext.Request.Url, request.HttpMethod,
-                                                   request.Params.ToPairs().Concat(Helpers.GetAuthHeaderParameters(request.Headers)), OAuthConstants.EndPointType.AccessRequest);
+      var oauthRequest = OAuthService.BuildRequest(filterContext.HttpContext.Request.Url, request.HttpMethod,request.Params,
+                                                   request.Headers, OAuthConstants.EndPointType.AccessRequest);
       if (!oauthRequest.IsValid())
       {
         filterContext.Result = new OAuthUnauthorizedResult();

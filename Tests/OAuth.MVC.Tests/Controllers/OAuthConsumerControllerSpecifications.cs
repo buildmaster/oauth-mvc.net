@@ -43,6 +43,7 @@ namespace OAuth.MVC.Tests.Controllers
             .Constraints(Is.TypeOf<string>())
             .Do((Action<string>)(s => responseString = s));
           var parameters = new NameValueCollection();
+          var headers = new NameValueCollection();
           const string httpMethod = "POST";
           var url = new Uri("http://someservice.com/get_request");
 
@@ -51,12 +52,12 @@ namespace OAuth.MVC.Tests.Controllers
           httpRequestMock.Stub(request => request.HttpMethod).Return(httpMethod);
           httpRequestMock.Stub(request => request.Params).Return(parameters);
           httpRequestMock.Stub(request => request.Url).Return(url);
+          httpRequestMock.Stub(request => request.Headers).Return(headers);
 
-
-          oauthServiceMock.Stub(oauthService => oauthService.BuildRequest(url, httpMethod, parameters.ToPairs(), OAuthConstants.EndPointType.RequestTokenRequest)).Return(oauthRequestMock);
+          oauthServiceMock.Stub(oauthService => oauthService.BuildRequest(url, httpMethod, parameters,headers, OAuthConstants.EndPointType.RequestTokenRequest)).Return(oauthRequestMock);
           oauthRequestMock.Stub(oauthRequest => oauthRequest.Consumer).Return(consumerMock);
           oauthRequestMock.Stub(oauthRequest => oauthRequest.IsValid()).Return(ValidRequest);
-
+          
           oauthServiceMock.Stub(oauthService => oauthService.GenerateRequestToken(consumerMock)).Return(requestTokenMock);
           requestTokenMock.Stub(requestToken => requestToken.Token).Return(Token);
           requestTokenMock.Stub(requestToken => requestToken.Secret).Return(Secret);
@@ -444,6 +445,7 @@ namespace OAuth.MVC.Tests.Controllers
             .Constraints(Is.TypeOf<string>())
             .Do((Action<string>)(s => responseString = s));
           var parameters = new NameValueCollection();
+          var headers = new NameValueCollection();
           const string httpMethod = "POST";
           var url = new Uri("http://someservice.com/get_access_token");
 
@@ -452,9 +454,10 @@ namespace OAuth.MVC.Tests.Controllers
           httpRequestMock.Stub(request => request.HttpMethod).Return(httpMethod);
           httpRequestMock.Stub(request => request.Params).Return(parameters);
           httpRequestMock.Stub(request => request.Url).Return(url);
+          httpRequestMock.Stub(request => request.Headers).Return(headers);
 
-
-          oauthServiceMock.Stub(oauthService => oauthService.BuildRequest(url, httpMethod, parameters.ToPairs(), OAuthConstants.EndPointType.AccessTokenRequest)).Return(oauthRequestMock);
+          
+          oauthServiceMock.Stub(oauthService => oauthService.BuildRequest(url, httpMethod, parameters,headers, OAuthConstants.EndPointType.AccessTokenRequest)).Return(oauthRequestMock);
           oauthRequestMock.Stub(oauthRequest => oauthRequest.Consumer).Return(consumerMock);
           oauthRequestMock.Stub(oauthRequest => oauthRequest.IsValid()).Return(ValidRequest);
           oauthRequestMock.Stub(oauthRequest => oauthRequest.RequestToken).Return(requestTokenMock);

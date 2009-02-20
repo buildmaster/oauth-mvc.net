@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Specialized;
+using System.Web;
 using OAuth.MVC.Library;
 using OAuth.MVC.Library.Interfaces;
 using Rhino.Mocks;
 using Xunit;
+using System.Linq;
 
 namespace OAuth.MVC.Tests
 {
@@ -11,7 +13,15 @@ namespace OAuth.MVC.Tests
   {
     public class when_service_is_asked_to_get_request : IUseFixture<MockRepository>
     {
-      private IOAuthRequest request;
+      private OAuthRequest request;
+      private NameValueCollection parameters;
+      private const string version = "1.0";
+      private const string nonce = "4572616e48616d6d65724c61686176";
+      private const string timestamp = "137131200";
+      private const string signature = "wOJIO9A2W5mFwDgiDvZbTSMK/PY=";
+      private const string signatureMethod = "HMAC-SHA1";
+      private const string token = "ad180jjd733klru7";
+      private const string consumerKey = "0685bd9184jfhq22";
 
       [Fact]
       public void a_request_object_should_be_created()
@@ -19,11 +29,77 @@ namespace OAuth.MVC.Tests
         Assert.NotNull(request);
       }
 
+      [Fact]
+      public void oauth_consumer_key_param_should_be_read_from_header_but_should_not_be_added_to_parameters()
+      {
+        Assert.False(parameters.AllKeys.Contains(OAuthConstants.PARAM_CONSUMER_KEY));
+        Assert.Equal(consumerKey,request.ConsumerKey);
+      }
+      [Fact]
+      public void oauth_token_param_should_be_added_from_header_but_should_not_be_added_to_parameters()
+      {
+        Assert.False(parameters.AllKeys.Contains(OAuthConstants.PARAM_TOKEN));
+        Assert.Equal(token, request.Token);
+      }
+      [Fact]
+      public void signature_method_param_should_be_added_from_header_but_should_not_be_added_to_parameters()
+      {
+        Assert.False(parameters.AllKeys.Contains(OAuthConstants.PARAM_SIGNATURE_METHOD));
+        Assert.Equal(OAuthBase.SignatureTypes.HMACSHA1, request.SignatureType);
+      }
+      [Fact]
+      public void signature_param_should_be_added_from_header_but_should_not_be_added_to_parameters()
+      {
+        Assert.False(parameters.AllKeys.Contains(OAuthConstants.PARAM_SIGNATURE));
+        Assert.Equal(signature,request.Signature);
+      }
+      [Fact]
+      public void timestamp_param_should_be_added_from_header_but_should_not_be_added_to_parameters()
+      {
+        Assert.False(parameters.AllKeys.Contains(OAuthConstants.PARAM_TIMESTAMP));
+        Assert.Equal(timestamp, request.TimeStamp);
+      }
+      [Fact]
+      public void nonce_param_should_be_added_from_header_but_should_not_be_added_to_parameters()
+      {
+        Assert.False(parameters.AllKeys.Contains(OAuthConstants.PARAM_NONCE));
+        Assert.Equal(nonce, request.Nonce);
+      }
+      [Fact]
+      public void version_param_should_be_added_from_header_but_should_not_be_added_to_parameters()
+      {
+        Assert.False(parameters.AllKeys.Contains(OAuthConstants.PARAM_VERSION));
+        
+      }
       public void SetFixture(MockRepository mocks)
       {
         var oAuthRepositoryMock = mocks.DynamicMock<IOAuthRepository>();
         IOAuthService oauthService = new OAuthService(oAuthRepositoryMock, null);
-        request = oauthService.BuildRequest(new Uri("http://someserver.com/somepath"), "POST", new NameValueCollection().ToPairs(), OAuthConstants.EndPointType.RequestTokenRequest);
+        var mockConsumer = mocks.DynamicMock<IConsumer>();
+        oAuthRepositoryMock.Stub(oauthRepository => oauthRepository.GetConsumer(consumerKey)).Return(mockConsumer);
+        mockConsumer.Stub(consumer => consumer.TimeStamp).Return(137131100);
+        mockConsumer.Stub(consumer => consumer.IsUsedNonce(timestamp, nonce)).Return(false);
+        mockConsumer.Stub(consumer => consumer.SecretKey).Return("someSecret");
+        var headers = new NameValueCollection
+                        {{"Authorization",String.Format("OAuth realm=\"http://sp.example.com/\","+
+                "oauth_consumer_key=\"{0}\","+
+                "oauth_token=\"{1}\","+
+                "oauth_signature_method=\"{2}\","+
+                "oauth_signature=\"{3}\","+
+                "oauth_timestamp=\"{4}\","+
+                "oauth_nonce=\"{5}\","+
+                "oauth_version=\"{6}\"",
+                HttpUtility.UrlEncode(consumerKey),
+                HttpUtility.UrlEncode(token),
+                HttpUtility.UrlEncode(signatureMethod),
+                HttpUtility.UrlEncode(signature),
+                HttpUtility.UrlEncode(timestamp),
+                HttpUtility.UrlEncode(nonce),
+                HttpUtility.UrlEncode(version))}};
+        parameters = new NameValueCollection();
+        mocks.ReplayAll();
+
+        request = (OAuthRequest)oauthService.BuildRequest(new Uri("http://someserver.com/somepath"), "POST", parameters, headers, OAuthConstants.EndPointType.RequestTokenRequest);
       }
     }
     public class when_service_is_asked_to_generate_a_request_token : IUseFixture<MockRepository>

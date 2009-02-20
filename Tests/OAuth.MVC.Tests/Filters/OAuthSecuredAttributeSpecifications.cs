@@ -16,8 +16,8 @@ namespace OAuth.MVC.Tests.Filters
   {
     public class given_an_access_request_to_a_secured_resource_without_access:IUseFixture<MockRepository>
   {
-    private HttpResponseBase responseMock;
-    readonly NameValueCollection headers = new NameValueCollection();
+    
+    
       private AuthorizationContext filterContext;
 
       [Fact] 
@@ -28,12 +28,11 @@ namespace OAuth.MVC.Tests.Filters
 
     public void SetFixture(MockRepository mocks)
     {
-      responseMock = mocks.DynamicMock<HttpResponseBase>();
       var httpContextMock = mocks.DynamicMock<HttpContextBase>();
       var oauthServiceMock = mocks.DynamicMock<IOAuthService>();
       var httpRequestMock = mocks.DynamicMock<HttpRequestBase>();
       var requestMock = mocks.DynamicMock<IOAuthRequest>();
-
+      var headers = new NameValueCollection();
       var parameters = new NameValueCollection();
       var uri = new Uri("http://someaddress.com");
       var httpMethod = "GET";
@@ -42,12 +41,11 @@ namespace OAuth.MVC.Tests.Filters
       httpContextMock.Stub(httpContext => httpContext.Request).Return(httpRequestMock);
       httpRequestMock.Stub(httpRequest => httpRequest.Params).Return(parameters);
       httpRequestMock.Stub(httpRequest => httpRequest.Url).Return(uri);
-
+      httpRequestMock.Stub(httpRequest => httpRequest.Headers).Return(headers);
       httpRequestMock.Stub(httpRequest => httpRequest.HttpMethod).Return(httpMethod);
-      responseMock.Stub(httpResponse => httpResponse.Headers).Return(headers);
-
+      
       oauthServiceMock.Stub(
-        service => service.BuildRequest(uri, httpMethod, parameters.ToPairs(), OAuthConstants.EndPointType.AccessRequest)).
+        service => service.BuildRequest(uri, httpMethod, parameters,headers, OAuthConstants.EndPointType.AccessRequest)).
         Return(requestMock);
       mocks.ReplayAll();
       requestMock.Stub(request => request.IsValid()).Return(false);
@@ -59,12 +57,12 @@ namespace OAuth.MVC.Tests.Filters
     public class given_an_access_request_to_a_secured_resource_with_access : IUseFixture<MockRepository>
     {
       private HttpResponseBase responseMock;
-      readonly NameValueCollection headers = new NameValueCollection();
-
+      
+      private AuthorizationContext filterContext;
       [Fact]
       public void no_headers_should_be_set()
       {
-        Assert.Empty(headers);
+        Assert.Null(filterContext.Result);
       } 
 
       public void SetFixture(MockRepository mocks)
@@ -74,11 +72,11 @@ namespace OAuth.MVC.Tests.Filters
         var oauthServiceMock = mocks.DynamicMock<IOAuthService>();
         var httpRequestMock = mocks.DynamicMock<HttpRequestBase>();
         var requestMock = mocks.DynamicMock<IOAuthRequest>();
-
+        var headers = new NameValueCollection();
         var parameters = new NameValueCollection();
         var uri = new Uri("http://someaddress.com");
         var httpMethod = "GET";
-        var filterContext = new AuthorizationContext(new ControllerContext(httpContextMock, new RouteData(), new TestController()));
+        filterContext = new AuthorizationContext(new ControllerContext(httpContextMock, new RouteData(), new TestController()));
 
         httpContextMock.Stub(httpContext => httpContext.Response).Return(responseMock);
         httpContextMock.Stub(httpContext => httpContext.Request).Return(httpRequestMock);
@@ -86,10 +84,10 @@ namespace OAuth.MVC.Tests.Filters
         httpRequestMock.Stub(httpRequest => httpRequest.Url).Return(uri);
         
         httpRequestMock.Stub(httpRequest => httpRequest.HttpMethod).Return(httpMethod);
-
+        httpRequestMock.Stub(httpRequest => httpRequest.Headers).Return(headers);
         
         oauthServiceMock.Stub(
-          service => service.BuildRequest(uri, httpMethod, parameters.ToPairs(), OAuthConstants.EndPointType.AccessRequest)).
+          service => service.BuildRequest(uri, httpMethod, parameters,headers, OAuthConstants.EndPointType.AccessRequest)).
           Return(requestMock);
         mocks.ReplayAll();
         requestMock.Stub(request => request.IsValid()).Return(true);
