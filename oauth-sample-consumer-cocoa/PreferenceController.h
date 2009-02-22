@@ -10,7 +10,14 @@
 
 
 @interface PreferenceController : NSWindowController {
-
+	IBOutlet NSTextField *requestTokenUrl;
+	IBOutlet NSTextField *requestAuthUrl;
+	IBOutlet NSTextField *accessTokenUrl;
+	IBOutlet NSTextField *consumerKey;
+	IBOutlet NSTextField *consumerSecret;
 }
+
+-(IBAction) savePreferences:(id)sender;
+-(IBAction) cancel:(id)sender;
 
 @end

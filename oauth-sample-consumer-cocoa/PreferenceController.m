@@ -11,4 +11,22 @@
 
 @implementation PreferenceController
 
+-(id)init
+{
+	if(![super initWithWindowNibName:@"Preferences"])
+	{
+		return nil;
+	}
+	return self;
+}
+
+-(IBAction) cancel:(id)sender
+{
+	[self close];
+}
+-(IBAction) savePreferences:(id)sender
+{
+	
+	
+}
 @end

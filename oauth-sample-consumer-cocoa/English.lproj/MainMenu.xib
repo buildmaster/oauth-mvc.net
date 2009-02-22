@@ -208,7 +208,7 @@
 						<reference key="source" ref="917733515"/>
 						<reference key="destination" ref="609285721"/>
 					</object>
-					<int key="connectionID">451</int>
+					<int key="connectionID">453</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -338,10 +338,9 @@
 						<reference key="parent" ref="1049"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">449</int>
+						<int key="objectID">452</int>
 						<reference key="object" ref="917733515"/>
 						<reference key="parent" ref="1049"/>
-						<string key="objectName">ApplicationController</string>
 					</object>
 				</object>
 			</object>
@@ -379,7 +378,7 @@
 					<string>29.WindowOrigin</string>
 					<string>29.editorWindowContentRectSynchronizationRect</string>
 					<string>419.IBPluginDependency</string>
-					<string>449.IBPluginDependency</string>
+					<string>452.IBPluginDependency</string>
 					<string>56.IBPluginDependency</string>
 					<string>56.ImportedFromIB2</string>
 					<string>57.IBEditorWindowLastContentRect</string>
@@ -448,7 +447,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">451</int>
+			<int key="maxID">453</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

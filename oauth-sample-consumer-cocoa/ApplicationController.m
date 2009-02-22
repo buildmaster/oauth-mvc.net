@@ -16,6 +16,6 @@
 	if(!preferenceController){
 		preferenceController = [[PreferenceController alloc]init];		
 	}
-	[preferenceController showWindow:self];
+	[preferenceController showWindow:preferenceController];
 }
 @end

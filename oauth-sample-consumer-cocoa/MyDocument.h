@@ -18,4 +18,5 @@
 }
 - (IBAction) changeViewController:(id)sender;
 -(void)displayViewController:(ManagingViewController *)vc;
+
 @end
