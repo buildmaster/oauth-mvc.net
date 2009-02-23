@@ -9,7 +9,7 @@
 #import "MyDocument.h"
 #import "RequestTokenViewController.h"
 #import "AccessTokenViewController.h"
-
+#import "OAuthRequestController.h"
 @implementation MyDocument
 
 - (id)init
@@ -25,7 +25,7 @@
 		[vc1 setManagedObjectContext:[self managedObjectContext]];
 		[vc1 setParent:self];
 		[viewControllers addObject:vc1];
-
+		[vc1 release];
 		
 		
 		ManagingViewController *vc2 = [[AccessTokenViewController alloc]init];
@@ -34,7 +34,11 @@
 		[viewControllers addObject:vc2];
 		[vc2 release];
 		
-		[vc1 release];	
+		ManagingViewController *vc3 = [[OAuthRequestController alloc]init];
+		[vc3 setManagedObjectContext:[self managedObjectContext]];
+		[vc3 setParent:self];
+		[viewControllers addObject:vc3];
+		[vc3 release];
     }
     return self;
 }
@@ -99,6 +103,11 @@
 		[self displayViewController:vc];
 
 	}	
+	if([viewName isEqualToString:@"OAuthRequest"])
+	{
+		ManagingViewController *vc = [viewControllers objectAtIndex:2];
+		[self displayViewController:vc];
+	}
 	
 }
 -(id) getSharedValue:(NSString *)key

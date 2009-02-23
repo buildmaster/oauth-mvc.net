@@ -23,4 +23,5 @@
 -(void)accessTokenTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
 -(IBAction) validateAccessToken:(id)sender;
 -(IBAction) goToRequestToken:(id)sender;
+-(IBAction) goToOAuthRequest:(id)sender;
 @end

@@ -13,9 +13,12 @@ extern NSString * const OACConsumerKey;
 extern NSString * const OACConsumerSecret;
 extern NSString * const OACRequestTokenKey;
 extern NSString * const OACRequestTokenSecret;
+extern NSString * const OACAccessTokenKey;
+extern NSString * const OACAccessTokenSecret;
 extern NSString * const OACRequestTokenUrl;
 extern NSString * const OACRequestTokenAuthUrl;
 extern NSString * const OACAccessTokenUrl;
+extern NSString * const OACLastRequestUrl;
 
 @interface ApplicationController : NSObject {
 	PreferenceController *preferenceController;

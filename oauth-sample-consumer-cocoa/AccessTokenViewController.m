@@ -77,6 +77,8 @@ didFinishWithData:(NSData *)data
 		NSLog(@"Got Ticket Key %@ and secret %@",[accessToken key],[accessToken secret]);
 		[accessTokenKey setStringValue:[accessToken key]];
 		[accessTokenSecret setStringValue:[accessToken secret]];
+		[parent setSharedValue:[accessToken key] forKey:OACAccessTokenKey];
+		[parent setSharedValue:[accessToken secret] forKey:OACAccessTokenSecret];
 	}
 	else
 	{
@@ -103,5 +105,10 @@ didFinishWithData:(NSData *)data
 {
 	
 	[parent setViewName:@"GetRequestToken"];
+}
+-(IBAction) goToOAuthRequest:(id)sender
+{
+	[parent setViewName:@"OAuthRequest"];
+	
 }
 @end
