@@ -62,7 +62,7 @@ namespace OAuth.MVC.Tests.Binders
       {
         get
         {
-          return typeof(IOAuthRequest);
+          return typeof(IAccessToken);
         }
       }
     }
