@@ -7,10 +7,7 @@
 //
 
 #import "ManagingViewController.h"
-NSString * const OACConsumerKey = @"ConsumerKey";
-NSString * const OACConsumerSecret = @"ConsumerSecret";
-NSString * const OACRequestTokenKey = @"RequestTokenKey";
-NSString * const OACRequestTokenSecret = @"RequestTokenSecret";
+
 
 @implementation ManagingViewController
 @synthesize managedObjectContext;

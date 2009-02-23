@@ -49,7 +49,7 @@
 -(void) windowControllerDidLoadNib:(NSWindowController *)wc
 {
 	[super windowControllerDidLoadNib:wc];
-	[self setView:@"GetRequestToken"];
+	[self setViewName:@"GetRequestToken"];
 }
 - (void) dealloc
 {
@@ -61,7 +61,7 @@
 -(void)displayViewController:(ManagingViewController *)vc
 {
 	//try to end editing
-	NSWindow *w = [box window];
+	NSWindow *w = [view window];
 	BOOL ended = [w makeFirstResponder:w];
 	if(!ended)
 	{
@@ -70,8 +70,9 @@
 	}
 	//put the view in the box
 	NSView *v = [vc view];
-	[box setContentView:nil];
-	[box setContentView:v];
+	view = v;
+	[w setContentView:nil];
+	[w setContentView:v];
 	
 	
 	
@@ -83,7 +84,7 @@
 	[self displayViewController:vc];
 	
 }
--(void) setView:(NSString *) viewName
+-(void) setViewName:(NSString *) viewName
 {
 
 	if([viewName isEqualToString: @"GetRequestToken"])

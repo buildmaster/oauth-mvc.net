@@ -7,7 +7,7 @@
 //
 
 #import "RequestTokenViewController.h"
-
+#import "ApplicationController.h"
 @implementation RequestTokenViewController
 
 -(id) init
@@ -26,12 +26,13 @@
 - (IBAction) getRequestKey:(id) sender
 {
 	OAConsumer *consumer;
-	NSString *consumerKeyValue = [consumerKey stringValue];
-	NSString *consumerSecretValue = [consumerSecret stringValue];
-	[parent setSharedValue:consumerKeyValue forKey:OACConsumerKey];
-	[parent setSharedValue:consumerSecretValue forKey:OACConsumerSecret];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *consumerKeyValue = [defaults valueForKey:OACConsumerKey];
+	NSString *consumerSecretValue = [defaults valueForKey:OACConsumerSecret];
 	consumer = [[OAConsumer alloc] initWithKey:consumerKeyValue secret:consumerSecretValue];
-	NSURL *requestUrl = [NSURL URLWithString:@"http://172.19.105.240/oauth/RequestToken"];
+	NSString *url = [defaults valueForKey:OACRequestTokenUrl];
+	NSLog(@"sending request for token to %@",url);
+	NSURL *requestUrl = [NSURL URLWithString:url];
 	OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:requestUrl
 																   consumer:consumer
 																	  token:nil
@@ -82,7 +83,7 @@ didFailWithError:(NSError *) error
 }
 -(IBAction) moveToGetAccessKey:(id) sender
 {
-	[parent setView:@"GetAccessToken"];
+	[parent setViewName:@"GetAccessToken"];
 	
 }
 	

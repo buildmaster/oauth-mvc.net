@@ -8,7 +8,7 @@
 
 
 @protocol ViewParent<NSObject>
-	-(void) setView:(NSString *) parent;
+	-(void) setViewName:(NSString *) parent;
 -(id) getSharedValue:(NSString*) key;
 -(void) setSharedValue:(id)value 
 				forKey:(NSString*) key;

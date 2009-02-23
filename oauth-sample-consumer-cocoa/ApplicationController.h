@@ -9,6 +9,14 @@
 #import <Cocoa/Cocoa.h>
 #import "PreferenceController.h"
 
+extern NSString * const OACConsumerKey;
+extern NSString * const OACConsumerSecret;
+extern NSString * const OACRequestTokenKey;
+extern NSString * const OACRequestTokenSecret;
+extern NSString * const OACRequestTokenUrl;
+extern NSString * const OACRequestTokenAuthUrl;
+extern NSString * const OACAccessTokenUrl;
+
 @interface ApplicationController : NSObject {
 	PreferenceController *preferenceController;
 

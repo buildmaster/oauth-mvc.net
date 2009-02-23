@@ -14,15 +14,13 @@
 @interface AccessTokenViewController : ManagingViewController {
 	IBOutlet NSTextField *requestTokenSecret;
 	IBOutlet NSTextField *requestTokenKey;
-	IBOutlet NSTextField *consumerKey;
-	IBOutlet NSTextField *consumerSecret;
 	IBOutlet NSTextField *accessTokenKey;
 	IBOutlet NSTextField *accessTokenSecret;
 }
 -(IBAction) getAccessToken:(id)sender;
 -(void)accessTokenTicket:(OAServiceTicket *)ticket
 		 didFailWithError:(NSError *) error;
-- (void)accessTokenTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
+-(void)accessTokenTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
 -(IBAction) validateAccessToken:(id)sender;
-
+-(IBAction) goToRequestToken:(id)sender;
 @end

@@ -12,7 +12,7 @@
 #import "ViewParent.h"
 @interface MyDocument : NSPersistentDocument<ViewParent>
 {
-	IBOutlet NSBox *box;
+	IBOutlet NSView *view;
 	NSMutableArray *viewControllers;
 	NSMutableDictionary *sharedValueDictionary;
 }

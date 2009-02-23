@@ -7,7 +7,7 @@
 //
 
 #import "AccessTokenViewController.h"
-
+#import "ApplicationController.h"
 
 @implementation AccessTokenViewController
 -(id) init
@@ -25,14 +25,8 @@
 	[super loadView];
 	NSString *consumerKeyValue = [parent getSharedValue:OACConsumerKey];
 	NSLog(@"Loaded Key from store %@",consumerKeyValue);
-	[consumerKey setStringValue:[parent getSharedValue:OACConsumerKey]];
-	[consumerSecret setStringValue:[parent getSharedValue:OACConsumerSecret]];
 	[requestTokenKey setStringValue:[parent getSharedValue:OACRequestTokenKey]];
 	[requestTokenSecret setStringValue:[parent getSharedValue:OACRequestTokenSecret]];
-	[consumerKey setEditable:FALSE];
-	[consumerKey setSelectable:FALSE];
-	[consumerSecret setEditable:FALSE];
-	[consumerSecret setSelectable:FALSE];
 	[requestTokenKey setEditable:FALSE];
 	[requestTokenSecret setSelectable:FALSE];
 	[accessTokenKey setEditable:FALSE];
@@ -40,14 +34,16 @@
 }
 -(IBAction) getAccessToken:(id)sender
 {
-	NSString *consumerKeyValue = [consumerKey stringValue];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	NSString *consumerKeyValue = [defaults valueForKey:OACConsumerKey];
+	NSString *consumerSecretValue = [defaults valueForKey:OACConsumerSecret];
 	NSLog(@"Loaded consumer key from screen %@",consumerKeyValue);
-	NSString *consumerSecretValue = [consumerSecret stringValue];
 	NSLog(@"Loaded consumer secret from screen %@",consumerSecretValue);
 	OAConsumer *consumer = [[OAConsumer alloc] initWithKey:consumerKeyValue secret:consumerSecretValue];
 	OAToken *requestToken = [[OAToken alloc] initWithKey:[requestTokenKey stringValue] secret:[requestTokenSecret stringValue]];
 	NSLog(@"created token");
-	NSURL *requestUrl = [NSURL URLWithString:@"http://172.19.105.240/oauth/AccessToken"];
+	NSURL *requestUrl = [NSURL URLWithString:[defaults valueForKey:OACAccessTokenUrl]];
 	NSLog(@"Created URL");
 	OAMutableURLRequest *request = [[OAMutableURLRequest alloc]initWithURL:requestUrl
 																  consumer:consumer
@@ -55,7 +51,7 @@
 																	 realm:nil
 														 signatureProvider:nil];
 	NSLog(@"Created Mutable URL Request");
-	[request setHTTPMethod:@"POST"];
+	[request setHTTPMethod:@"GET"];
 	NSLog(@"Created Request");
 	OADataFetcher *fetcher = [[OADataFetcher alloc]init];
 	NSLog(@"Created fetcher"); 
@@ -96,9 +92,16 @@ didFinishWithData:(NSData *)data
 }
 -(IBAction) validateAccessToken:(id)sender
 {
-	NSString *urlString = [NSString stringWithFormat:@"http://172.19.105.240/Account/AuthoriseRequestToken?oauth_token=%@",[requestTokenKey stringValue]];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
+	NSString *urlString = [NSString stringWithFormat:[defaults valueForKey:	OACRequestTokenAuthUrl],[requestTokenKey stringValue]];
 	NSURL *url = [NSURL URLWithString:urlString];
 	[[NSWorkspace sharedWorkspace] openURL:url];
 	
+}
+-(IBAction) goToRequestToken:(id)sender
+{
+	
+	[parent setViewName:@"GetRequestToken"];
 }
 @end

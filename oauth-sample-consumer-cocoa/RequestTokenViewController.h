@@ -11,8 +11,6 @@
 #import "ManagingViewController.h"
 
 @interface RequestTokenViewController : ManagingViewController {
-	IBOutlet NSTextField *consumerKey;
-	IBOutlet NSTextField *consumerSecret;
 	IBOutlet NSButton *nextView;
 	IBOutlet NSTextField *token;
 	IBOutlet NSTextField *tokenSecret;
