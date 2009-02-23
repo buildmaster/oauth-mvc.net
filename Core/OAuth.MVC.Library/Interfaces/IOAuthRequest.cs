@@ -7,5 +7,6 @@ namespace OAuth.MVC.Library.Interfaces
     IConsumer Consumer { get; }
     IOAuthRequestError Error { get; }
     IRequestToken RequestToken { get; }
+    IAccessToken AccessToken { get; }
   }
 }

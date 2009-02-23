@@ -53,7 +53,7 @@ namespace OAuth.MVC.Tests
         mockIOAuthRepository = mocks.DynamicMock<IOAuthRepository>();
         mockConsumer = mocks.DynamicMock<IConsumer>();
         mockToken = mocks.DynamicMock<IRequestToken>();
-        mockConsumer.Stub(consumer => consumer.SecretKey).Return(ConsumerSecret);
+        mockConsumer.Stub(consumer => consumer.Secret).Return(ConsumerSecret);
         mockConsumer.Stub(consumer => consumer.IsUsedNonce(Timestamp, Nonce)).Return(IsUsedNonce);
         mockConsumer.Stub(consumer => consumer.TimeStamp).Return(ConsumerTimestamp);
         

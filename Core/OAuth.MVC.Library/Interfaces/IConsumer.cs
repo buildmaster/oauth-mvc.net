@@ -1,20 +1,24 @@
-using System;
-
 namespace OAuth.MVC.Library.Interfaces
 {
   public interface IConsumer
   {
     /// <summary>
-    /// Gets the secret key.
+    /// Gets the secret.
     /// </summary>
-    /// <value>The secret key.</value>
-    string SecretKey { get; }
+    /// <value>The secret.</value>
+    string Secret { get; }
 
     /// <summary>
     /// Gets the time stamp.
     /// </summary>
     /// <value>The time stamp.</value>
     int TimeStamp { get; }
+
+    /// <summary>
+    /// Gets the key.
+    /// </summary>
+    /// <value>The key.</value>
+    string Key { get; }
 
     /// <summary>
     /// Gets the token.
@@ -48,5 +52,6 @@ namespace OAuth.MVC.Library.Interfaces
     void SaveRequestToken(IRequestToken requestToken);
 
     void SaveAccessToken(IAccessToken token);
+    IAccessToken GetAccessToken(string accessTokenKey);
   }
 }

@@ -79,7 +79,7 @@ namespace OAuth.MVC.Tests
         oAuthRepositoryMock.Stub(oauthRepository => oauthRepository.GetConsumer(consumerKey)).Return(mockConsumer);
         mockConsumer.Stub(consumer => consumer.TimeStamp).Return(137131100);
         mockConsumer.Stub(consumer => consumer.IsUsedNonce(timestamp, nonce)).Return(false);
-        mockConsumer.Stub(consumer => consumer.SecretKey).Return("someSecret");
+        mockConsumer.Stub(consumer => consumer.Secret).Return("someSecret");
         var headers = new NameValueCollection
                         {{"Authorization",String.Format("OAuth realm=\"http://sp.example.com/\","+
                 "oauth_consumer_key=\"{0}\","+

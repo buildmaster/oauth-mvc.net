@@ -24,7 +24,7 @@ namespace OAuth.MVC.Library.Binders
           return oauthRequest.Consumer;
         }
       }
-      else if(bindingContext.ModelType==typeof(OAuthRequest))
+      else if(bindingContext.ModelType==typeof(IOAuthRequest))
       {        
         return oauthRequest;
       }

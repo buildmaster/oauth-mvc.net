@@ -122,6 +122,19 @@ namespace OAuth.MVC.Library
           return false;
         }
       }
+      if(endPointType == OAuthConstants.EndPointType.AccessRequest)
+      {
+        AccessToken = Consumer.GetAccessToken(Token);
+        if (AccessToken != null)
+        {
+          tokenSecret = AccessToken.Secret;
+        }
+        if (AccessToken == null)
+        {
+          Error = new InvalidTokenError();
+          return false;
+        }
+      }
       int timeStampInt;
       if (!int.TryParse(TimeStamp, out timeStampInt))
       {
@@ -159,6 +172,8 @@ namespace OAuth.MVC.Library
     internal Uri URL { get; set; }
     public IOAuthRequestError Error { get; set; }
     public IRequestToken RequestToken { get; set; }
+    public IAccessToken AccessToken{ get; set; }
+    
 
     private readonly bool isValid;
 
@@ -175,7 +190,7 @@ namespace OAuth.MVC.Library
     internal string Signature { get; set; }
     private string ConsumerSecret
     {
-      get { return Consumer.SecretKey; }
+      get { return Consumer.Secret; }
     }
 
     public bool IsValid()

@@ -8,6 +8,7 @@ using System.Web.Routing;
 using Ninject.Core;
 using Ninject.Framework.Mvc;
 using OAuth.MVC.Library;
+using OAuth.MVC.Library.Binders;
 using OAuth.MVC.Library.Controllers;
 using OAuth.MVC.Library.Interfaces;
 using OAuth.MVC.Sample.Controllers;
@@ -29,7 +30,8 @@ namespace OAuth.MVC.Sample
           new { controller = "Home", action = "Index", id = "" }  // Parameter defaults
       );
       
-
+     ModelBinders.Binders.Add(typeof(IOAuthRequest),new OAuthBinder {OAuthService = KernelContainer.Kernel.Get<IOAuthService>()});
+      
     }
 
     protected override IKernel CreateKernel()
@@ -108,7 +110,7 @@ namespace OAuth.MVC.Sample
       if (!Consumers.Keys.Contains(consumerKey))
       {
         //create the consumer
-        Consumers.Add(consumerKey,new Consumer{SecretKey= consumerKey+"secret"});
+        Consumers.Add(consumerKey, new Consumer {Key = consumerKey,Secret= consumerKey+"secret"});
         
       }
       return Consumers[consumerKey];
@@ -132,9 +134,12 @@ namespace OAuth.MVC.Sample
     readonly IList<string> usedNonces = new List<string>();
     readonly IDictionary<string,IRequestToken> requestTokens = new Dictionary<string, IRequestToken>();
     readonly IDictionary<string,IAccessToken> accessTokens = new Dictionary<string, IAccessToken>();
-    public string SecretKey{ get;set;}
+    public string Secret{ get;set;}
 
     public int TimeStamp{get; set;}
+    public string Key
+    { get; set; }
+    
 
     public IRequestToken GetRequestToken(string requestToken)
     {
@@ -168,6 +173,11 @@ namespace OAuth.MVC.Sample
     public void SaveAccessToken(IAccessToken accessToken)
     {
       accessTokens.Add(accessToken.Token, accessToken); 
+    }
+
+    public IAccessToken GetAccessToken(string accessTokenKey)
+    {
+      return accessTokens[accessTokenKey];
     }
   }
 }

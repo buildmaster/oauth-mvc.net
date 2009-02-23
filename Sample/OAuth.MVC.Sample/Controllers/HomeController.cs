@@ -13,11 +13,9 @@ namespace OAuth.MVC.Sample.Controllers
   public class HomeController : Controller
   {
    
-    public ActionResult Index([Bind]IOAuthRequest request)
+    public ActionResult Index(IOAuthRequest request)
     {
-      ViewData["Message"] = "Welcome to ASP.NET MVC!";
-
-      return View();
+      return Json(request);
     }
 
     public ActionResult About()

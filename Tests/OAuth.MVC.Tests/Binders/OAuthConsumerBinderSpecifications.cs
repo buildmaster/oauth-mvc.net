@@ -120,7 +120,7 @@ namespace OAuth.MVC.Tests.Binders
 
       #region IConsumer Members
 
-      public string SecretKey
+      public string Secret
       {
         get { throw new NotImplementedException(); }
       }
@@ -128,6 +128,11 @@ namespace OAuth.MVC.Tests.Binders
       public int TimeStamp
       {
         get { throw new NotImplementedException(); }
+      }
+
+      public string Key
+      {
+        get { throw new System.NotImplementedException(); }
       }
 
       public IRequestToken GetRequestToken(string requestToken)
@@ -153,6 +158,11 @@ namespace OAuth.MVC.Tests.Binders
       public void SaveAccessToken(IAccessToken token)
       {
         throw new NotImplementedException();
+      }
+
+      public IAccessToken GetAccessToken(string accessTokenKey)
+      {
+        throw new System.NotImplementedException();
       }
 
       #endregion

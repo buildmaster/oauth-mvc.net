@@ -25,8 +25,15 @@ namespace OAuth.MVC.Sample.Controllers
 
     public ActionResult AuthoriseRequestToken(string oauth_token, string oauth_callback)
     {
-      if(Request.Params[OAuthConstants.PARAM_TOKEN]!=null)
-        oAuthService.GetRequestToken(Request.Params[OAuthConstants.PARAM_TOKEN]).IsAuthorized = true;
+
+      var userID = Guid.NewGuid();
+      if (Request.Params[OAuthConstants.PARAM_TOKEN] != null)
+      {
+        var requestToken = oAuthService.GetRequestToken(Request.Params[OAuthConstants.PARAM_TOKEN]);
+        requestToken.UserID = userID;
+        requestToken.IsAuthorized = true;
+        return Json(requestToken);
+      }
       if(Request.Params[OAuthConstants.PARAM_CALLBACK]!=null)
         return new RedirectResult(Request.Params[OAuthConstants.PARAM_CALLBACK]);
       return new EmptyResult();
