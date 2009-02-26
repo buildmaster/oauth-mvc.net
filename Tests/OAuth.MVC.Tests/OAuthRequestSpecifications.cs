@@ -470,5 +470,79 @@ namespace OAuth.MVC.Tests
         }
       }
     }
+    public class a_request_that_has_extra_parameters:OAuthRequestContext
+    {
+      [Fact]
+      public void should_match_the_different_signature()
+      {
+        Assert.True(request.IsValid());
+      }
+      [Fact]
+      public void there_should_be_no_error_in_request()
+      {
+        Assert.Null(request.Error);
+      }
+      protected override IEnumerable<KeyValuePair<string, string>> Parameters
+      {
+        //as generated at google playground git://github.com/AArnott/dotnetopenid.git
+        //Authorization: OAuth oauth_version="1.0", oauth_nonce="d220a553509232565c9a97cff49c6794", oauth_timestamp="1235678253", oauth_consumer_key="myconsumerkey", oauth_signature_method="HMAC-SHA1", oauth_signature="ZFXzB%2BCYBx5gQYgqG8jceAj2InA%3D"
+        get
+        {
+          return new Dictionary<string, string>
+                   {
+                     {"oauth_version", "1.0"},
+                     {"oauth_nonce", "d220a553509232565c9a97cff49c6794"},
+                     {"oauth_timestamp", "1235678253"},
+                     {"oauth_consumer_key", "myconsumerkey"},
+                     {"oauth_signature_method", "HMAC-SHA1"},
+                     {"oauth_signature", "ZFXzB%2BCYBx5gQYgqG8jceAj2InA%3D"},
+                     {"scope", "http://www.google.com/m8/feeds/"}
+                   };
+        }
+ 
+      }
+      protected override Uri URL
+      {
+        get
+        {
+          return new Uri("https://www.google.com/accounts/OAuthGetRequestToken");
+        }
+      }
+      protected override string ConsumerSecret
+      {
+        get
+        {
+          return "myconsumersecret";
+        }
+      }
+      protected override string HttpMethod
+      {
+        get
+        {
+          return "GET";
+        }
+      }
+      protected override int ConsumerTimestamp
+      {
+        get
+        {
+          return 1235600000;
+        }
+      }
+      protected override bool IsUsedNonce
+      {
+        get
+        {
+          return false;
+        }
+      }
+      protected override OAuthConstants.EndPointType EndPointType
+      {
+        get
+        {
+          return OAuthConstants.EndPointType.RequestTokenRequest;
+        }
+      }
+    }
   }
 }

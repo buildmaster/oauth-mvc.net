@@ -1,7 +1,7 @@
 using System.Web.Mvc;
 using Ninject.Core;
 using OAuth.MVC.Library.Interfaces;
-using System.Linq;
+
 namespace OAuth.MVC.Library.Binders
 {
   public class OAuthBinder:IModelBinder
