@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Windows;
-using OAuth.MVC.Client.Sample.Controllers;
-using OAuth.MVC.Client.Sample.Interfaces;
 
 namespace OAuth.MVC.Client.Sample
 {

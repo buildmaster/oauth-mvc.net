@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevDefined.OAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a3261f5b4697e67d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\DevDefined\DevDefined.OAuth.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject.Core, Version=1.5.0.135, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\Ninject\Ninject.Core.dll</HintPath>
@@ -60,30 +64,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Binders\OAuthBinder.cs" />
-    <Compile Include="Configuration\OAuthConfigurationSection.cs" />
     <Compile Include="Controllers\OAuthController.cs" />
-    <Compile Include="Errors\OAuthRequestError.cs" />
-    <Compile Include="Errors\UnauthorisedErrors.cs" />
     <Compile Include="Filters\OAuthSecuredAttribute.cs" />
-    <Compile Include="Helpers.cs" />
-    <Compile Include="Interfaces\IAccessToken.cs" />
-    <Compile Include="Interfaces\IConsumer.cs" />
-    <Compile Include="Interfaces\IOAuthRepository.cs" />
-    <Compile Include="Interfaces\IOAuthRequest.cs" />
-    <Compile Include="Interfaces\IOAuthRequestError.cs" />
-    <Compile Include="Interfaces\IOAuthService.cs" />
-    <Compile Include="Interfaces\IRequestToken.cs" />
-    <Compile Include="Interfaces\IToken.cs" />
-    <Compile Include="Interfaces\ITokenGenerator.cs" />
-    <Compile Include="OAuthBase.cs" />
-    <Compile Include="OAuthConstants.cs" />
-    <Compile Include="OAuthRequest.cs" />
-    <Compile Include="OAuthService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Results\OAuthRequestErrorResult.cs" />
+    <Compile Include="Results\OAuthExceptionResult.cs" />
     <Compile Include="Results\OAuthTokenResult.cs" />
-    <Compile Include="Errors\BadRequestErrors.cs" />
-    <Compile Include="Results\OAuthUnauthorizedResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configuration\" />
+    <Folder Include="Errors\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

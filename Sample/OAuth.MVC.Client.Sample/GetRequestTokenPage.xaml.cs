@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using OAuth.MVC.Client.Sample.Controllers;
 using OAuth.MVC.Client.Sample.Interfaces;
 
 namespace OAuth.MVC.Client.Sample
@@ -13,7 +12,6 @@ namespace OAuth.MVC.Client.Sample
     public GetRequestTokenPage()
     {
       InitializeComponent();
-      new GetRequestTokenController(this);
     }
     
     private void GetRequestTokenButton_Click(object sender, RoutedEventArgs e)

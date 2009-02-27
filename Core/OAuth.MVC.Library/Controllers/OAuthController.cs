@@ -1,44 +1,52 @@
-using System.Linq;
+using System;
 using System.Web.Mvc;
-using OAuth.MVC.Library.Interfaces;
+using DevDefined.OAuth.Framework;
+using DevDefined.OAuth.Provider;
 using OAuth.MVC.Library.Results;
 
 namespace OAuth.MVC.Library.Controllers
 {
   public class OAuthController:Controller
   {
-    private readonly IOAuthService oauthService;
+    private readonly IOAuthContextBuilder oAuthContextBuilder;
+    private readonly IOAuthProvider oAuthProvider;
 
-    public OAuthController(IOAuthService oauthService)
+    public OAuthController(IOAuthContextBuilder oAuthContextBuilder,IOAuthProvider oAuthProvider)
     {
-      this.oauthService = oauthService;
+      
+      this.oAuthContextBuilder = oAuthContextBuilder;
+      this.oAuthProvider = oAuthProvider;
     }
 
     public ActionResult RequestToken()
     {
-      var oauthRequest = CreateRequest(OAuthConstants.EndPointType.RequestTokenRequest);
-      if(oauthRequest.IsValid())
+      var oauthContext = oAuthContextBuilder.FromHttpRequest(Request);
+      try
       {
-        var requestToken = oauthService.GenerateRequestToken(oauthRequest.Consumer);
-        return new OAuthTokenResult(requestToken);
+        var token = oAuthProvider.GrantRequestToken(oauthContext);
+        return new OAuthTokenResult(token);
       }
-      return new OAuthRequestErrorResult(oauthRequest.Error);
+      catch (OAuthException e)
+      {
+        return new OAuthExceptionResult(e);
+        
+      }
     }
     public ActionResult AccessToken()
     {
-      var oauthRequest = CreateRequest(OAuthConstants.EndPointType.AccessTokenRequest);
-      if(oauthRequest.IsValid())
+      var oauthContext = oAuthContextBuilder.FromHttpRequest(Request);
+      try
       {
-        var accessToken = oauthService.GenerateAccessToken(oauthRequest.Consumer, oauthRequest.RequestToken.UserID);
-        return new OAuthTokenResult(accessToken);
+        var token = oAuthProvider.ExchangeRequestTokenForAccessToken(oauthContext);
+        return new OAuthTokenResult(token);
       }
-      return new OAuthRequestErrorResult(oauthRequest.Error);
+      catch (OAuthException e)
+      {
+        return new OAuthExceptionResult(e);
+      }
     }
     
-    private IOAuthRequest CreateRequest(OAuthConstants.EndPointType endPointType)
-    {
-      return oauthService.BuildRequest(Request.Url, Request.HttpMethod, Request.Params,Request.Headers,endPointType);
-    }
+    
 
     
   }

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using OAuth.MVC.Library.Filters;
-using OAuth.MVC.Library.Interfaces;
 
 namespace OAuth.MVC.Sample.Controllers
 {
@@ -13,14 +8,11 @@ namespace OAuth.MVC.Sample.Controllers
   public class HomeController : Controller
   {
    
-    public ActionResult Index(IOAuthRequest request)
+    public ActionResult Index()
     {
-      return Json(request);
+      return new EmptyResult();
     }
 
-    public ActionResult About()
-    {
-      return View();
-    }
+    
   }
 }
