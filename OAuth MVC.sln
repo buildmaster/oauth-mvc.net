@@ -9,6 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuth.MVC.Sample", "Sample\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{86E0205E-66F8-4742-AF5C-4E27FB3E1ACF}"
 	ProjectSection(SolutionItems) = preProject
+		LICENCE.txt = LICENCE.txt
 		README = README
 	EndProjectSection
 EndProject
