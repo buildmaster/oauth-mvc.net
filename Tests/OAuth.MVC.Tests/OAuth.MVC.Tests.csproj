@@ -70,7 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Binders\OAuthConsumerBinderSpecifications.cs" />
+    <Compile Include="Binders\OAuthBinderSpecifications.cs" />
     <Compile Include="Controllers\OAuthControllerSpecifications.cs" />
     <Compile Include="Filters\OAuthSecuredAttributeSpecifications.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

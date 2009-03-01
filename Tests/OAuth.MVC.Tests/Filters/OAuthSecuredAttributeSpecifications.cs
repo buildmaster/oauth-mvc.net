@@ -82,7 +82,9 @@ namespace OAuth.MVC.Tests.Filters
       }
       protected override void SetupExpectations()
       {
-        base.DefaultoAuthPovider.Stub(provider => provider.AccessProtectedResourceRequest(DefaultoAuthContext)).Throw(
+        
+        
+        DefaultoAuthPovider.Stub(provider => provider.AccessProtectedResourceRequest(DefaultoAuthContext)).Throw(
           new OAuthException());
       }
     }
@@ -153,7 +155,7 @@ namespace OAuth.MVC.Tests.Filters
     }
     public class given_an_oauth_request_sets_a_www_auth_header:OAuthOnResultExcecutedContext
     {
-      private readonly NameValueCollection headers= new NameValueCollection(){{"WWW-Authenticate","NTLM"}};
+      private readonly NameValueCollection headers= new NameValueCollection {{"WWW-Authenticate","NTLM"}};
 
       protected override NameValueCollection Headers
       {
