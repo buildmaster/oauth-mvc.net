@@ -35,6 +35,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\Codeclimber.Ninject.FilterInjector.v1.0.0-bin\Codeclimber.Ninject.FilterInjector.dll</HintPath>
     </Reference>
+    <Reference Include="DevDefined.OAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a3261f5b4697e67d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\DevDefined\DevDefined.OAuth.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject.Conditions, Version=1.5.0.135, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\Ninject\Ninject.Conditions.dll</HintPath>
