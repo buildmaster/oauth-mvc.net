@@ -12,6 +12,7 @@ using DevDefined.OAuth.Storage;
 using DevDefined.OAuth.Testing;
 using Ninject.Core;
 using Ninject.Framework.Mvc;
+using OAuth.MVC.Library.Binders;
 using OAuth.MVC.Library.Controllers;
 
 namespace OAuth.MVC.Sample
@@ -30,9 +31,9 @@ namespace OAuth.MVC.Sample
           "{controller}/{action}/{id}",                           // URL with parameters
           new { controller = "Home", action = "Index", id = "" }  // Parameter defaults
       );
-      
-     
-      
+
+
+      ModelBinders.Binders.Add(typeof(IOAuthContext), new OAuthBinder {OAuthContextBuilder = KernelContainer.Kernel.Get<IOAuthContextBuilder>() });
     }
 
     protected override IKernel CreateKernel()
@@ -52,10 +53,12 @@ namespace OAuth.MVC.Sample
       var consumerStore = new TestConsumerStore();
       var signatureInspector = new SignatureValidationInspector(consumerStore);
       var consumerValidationInspector = new ConsumerValidationInspector(consumerStore);
-      var timestampInspector = new TimestampRangeInspector(new TimeSpan(0, 1, 0));
-      var tokenStore = new SampleMemoryTokenStore(new TokenRepository());
+      var timestampInspector = new TimestampRangeInspector(new TimeSpan(1,0 , 0));
+      var tokenRepository = new TokenRepository();
+      var tokenStore = new SampleMemoryTokenStore(tokenRepository);
       var oauthProvider = new OAuthProvider(tokenStore,consumerValidationInspector, nonceStoreInspector,timestampInspector, signatureInspector);
       Bind<IOAuthProvider>().ToConstant(oauthProvider);
+      Bind<TokenRepository>().ToConstant(tokenRepository);
     }
   }
 
@@ -123,11 +126,12 @@ namespace OAuth.MVC.Sample
     public IToken CreateRequestToken(IOAuthContext context)
     {
       var token = new RequestToken
-        {
-          ConsumerKey = context.ConsumerKey,
-          Realm = context.Realm,
-          Token = Guid.NewGuid().ToString(),
-          TokenSecret = Guid.NewGuid().ToString()
+                    {
+                      ConsumerKey = context.ConsumerKey,
+                      Realm = context.Realm,
+                      Token = Guid.NewGuid().ToString(),
+                      TokenSecret = Guid.NewGuid().ToString(),
+                      AccessDenied = true,
         };
 
       _repository.SaveRequestToken(token);
@@ -144,8 +148,8 @@ namespace OAuth.MVC.Sample
         throw new OAuthException(requestContext, OAuthProblems.TokenRejected,
                                  "The request token has already be consumed.");
       }
-
-      requestToken.UsedUp = true;
+      if(!requestToken.AccessDenied)
+        requestToken.UsedUp = true;
 
       _repository.SaveRequestToken(requestToken);
     }
@@ -178,6 +182,17 @@ namespace OAuth.MVC.Sample
       return RequestForAccessStatus.Granted;
     }
 
+    public IToken GetToken(IOAuthContext context)
+    {
+      var token = (IToken)null;
+      if (!string.IsNullOrEmpty(context.Token))
+      {
+        token = _repository.GetAccessToken(context.Token) ??
+                (IToken)_repository.GetRequestToken(context.Token);
+      }
+      return token;
+    }
+
     #endregion
   }
 
@@ -193,12 +208,16 @@ namespace OAuth.MVC.Sample
 
     public RequestToken GetRequestToken(string token)
     {
-      return _requestTokens[token];
+      if(_requestTokens.ContainsKey(token))
+        return _requestTokens[token];
+      return null;
     }
 
     public AccessToken GetAccessToken(string token)
     {
-      return _accessTokens[token];
+      if(_accessTokens.ContainsKey(token))
+         return _accessTokens[token];
+      return null;
     }
 
     public void SaveRequestToken(RequestToken token)

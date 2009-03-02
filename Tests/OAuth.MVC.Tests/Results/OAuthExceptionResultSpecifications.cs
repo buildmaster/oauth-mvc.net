@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -78,7 +79,11 @@ namespace OAuth.MVC.Tests.Results
       {
         Response.AssertWasCalled(response=>response.Write(Exception.Report.ToString()));
       }
-      
+      [Fact]
+      public void oauth_header_should_be_set()
+      {
+        Response.AssertWasCalled(response=>response.AddHeader("WWW-Authenticate",String.Format("OAuth Realm=\"{0}\"",Realm)));
+      }
       public override OAuthException Exception
       {
         get

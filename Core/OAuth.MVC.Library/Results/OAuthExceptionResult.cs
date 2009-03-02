@@ -30,7 +30,7 @@ namespace OAuth.MVC.Library.Results
           break;
       }
       
-      
+      response.AddHeader("WWW-Authenticate",string.Format("OAuth Realm=\"{0}\"",exception.Context.Realm));
       response.Write(exception.Report.ToString());
     }
   }
