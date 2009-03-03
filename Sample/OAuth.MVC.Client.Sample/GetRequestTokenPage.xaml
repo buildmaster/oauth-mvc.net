@@ -1,0 +1,36 @@
+﻿<Page x:Class="OAuth.MVC.Client.Sample.GetRequestTokenPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="GetRequestTokenPage">
+    <Grid>
+        <StackPanel Margin="0,0,0,0" Name="stackPanel1" >
+      <StackPanel Orientation="Horizontal" >
+        <Label Width="100">Request Token Url:</Label>
+        <TextBox Name="RequestUrl" Width="380"></TextBox>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" >
+        <Label Width="100">Consumer Key:</Label>
+        <TextBox Name="ConsumerKeyText" Width="380"></TextBox>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" >
+        <Label Width="100">Consumer Secret Key:</Label>
+        <TextBox Name="ConsumerSecretKey" Width="380"></TextBox>
+      </StackPanel>
+      <TextBlock Height="300" Name="OutputText">
+        
+      </TextBlock>
+      <StackPanel Orientation="Horizontal">
+        <Label>Request Token</Label>
+        <TextBox Name="TokenText" Width="200" IsEnabled="False"></TextBox>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal">
+        <Label>Request Token Secret</Label>
+        <TextBox Name="TokenSecretText" Width="200" IsEnabled="False"></TextBox>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal">
+        <Button Name="GetRequestTokenButton" Click="GetRequestTokenButton_Click">Get Request Token</Button>
+        <Button Name="GoToAccessTokenViewButton">Next >></Button>
+      </StackPanel>
+    </StackPanel>
+    </Grid>
+</Page>

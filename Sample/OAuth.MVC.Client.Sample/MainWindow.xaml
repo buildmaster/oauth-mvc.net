@@ -1,0 +1,8 @@
+﻿<Window x:Class="OAuth.MVC.Client.Sample.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="OAuth Test Application" Height="500" Width="500" Name="MainWindowHolder">
+  <Frame Name="PageHolder">
+    
+  </Frame>
+</Window>
