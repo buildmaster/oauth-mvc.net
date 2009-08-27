@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
-using DevDefined.OAuth.Framework;
+using OAuth.Web.Protocol;
 using QueryParameter = System.Collections.Generic.KeyValuePair<string, string>;
 
 namespace OAuth.Web
