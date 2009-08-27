@@ -15,7 +15,7 @@ namespace OAuth.MVC.Library.Filters
     public IOAuthContextBuilder OAuthContextBuilder { get; set; }
     [Inject]
     public IOAuthProvider OAuthProvider { get; set; }
-    public void OnAuthorization(AuthorizationContext filterContext)
+    public virtual void OnAuthorization(AuthorizationContext filterContext)
     {
       if(OAuthContextBuilder==null)
         throw new NullReferenceException("OAuthContextBuilder wasn't set in the Authorisation filter, please use an IOC container to do this");
@@ -38,16 +38,7 @@ namespace OAuth.MVC.Library.Filters
       var context = OAuthContextBuilder.FromHttpRequest(filterContext.HttpContext.Request);
       var response = filterContext.HttpContext.Response;
       var header = string.Format("OAuth Realm=\"{0}\"", context.Realm);
-      if(response.Headers.AllKeys.Contains("WWW-Authenticate"))
-      {
-        header = response.Headers["WWW-Authenticate"] + "\n" + header;
-        response.Headers["WWW-Authenticate"] = header;
-      }
-      else
-      {
-        response.AddHeader("WWW-Authenticate", header);  
-      }
-      
+      response.AddHeader("WWW-Authenticate",header);
     }
   }
 }

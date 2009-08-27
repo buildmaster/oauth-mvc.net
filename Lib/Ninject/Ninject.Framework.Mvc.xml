@@ -4,56 +4,6 @@
         <name>Ninject.Framework.Mvc</name>
     </assembly>
     <members>
-        <member name="T:Ninject.Framework.Mvc.AutoControllerModule">
-            <summary>
-            A module that automatically loads and registers all MVC controllers in specific assemblies.
-            </summary>
-        </member>
-        <member name="M:Ninject.Framework.Mvc.AutoControllerModule.#ctor(System.Collections.Generic.IEnumerable{System.Reflection.Assembly})">
-            <summary>
-            Initializes a new instance of the <see cref="T:Ninject.Framework.Mvc.AutoControllerModule"/> class.
-            </summary>
-            <param name="assemblies">The assemblies to scan for controllers.</param>
-        </member>
-        <member name="M:Ninject.Framework.Mvc.AutoControllerModule.#ctor(System.Reflection.Assembly[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:Ninject.Framework.Mvc.AutoControllerModule"/> class.
-            </summary>
-            <param name="assemblies">The assemblies to scan for controllers.</param>
-        </member>
-        <member name="M:Ninject.Framework.Mvc.AutoControllerModule.#ctor(System.Collections.Generic.IEnumerable{System.String})">
-            <summary>
-            Initializes a new instance of the <see cref="T:Ninject.Framework.Mvc.AutoControllerModule"/> class.
-            </summary>
-            <param name="assemblyNames">The names of assemblies which should be scanned for controllers.</param>
-        </member>
-        <member name="M:Ninject.Framework.Mvc.AutoControllerModule.#ctor(System.String[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:Ninject.Framework.Mvc.AutoControllerModule"/> class.
-            </summary>
-            <param name="assemblyNames">The names of assemblies which should be scanned for controllers.</param>
-        </member>
-        <member name="M:Ninject.Framework.Mvc.AutoControllerModule.Load">
-            <summary>
-            Loads the module into the kernel.
-            </summary>
-        </member>
-        <member name="T:Ninject.Framework.Mvc.KernelContainer">
-            <summary>
-            A static container for the <see cref="T:Ninject.Framework.Mvc.NinjectHttpApplication"/>'s kernel.
-            </summary>
-        </member>
-        <member name="M:Ninject.Framework.Mvc.KernelContainer.Inject(System.Object)">
-            <summary>
-            Injects the specified instance by using the container's kernel.
-            </summary>
-            <param name="instance">The instance to inject.</param>
-        </member>
-        <member name="P:Ninject.Framework.Mvc.KernelContainer.Kernel">
-            <summary>
-            Gets or sets the kernel that is used in the application.
-            </summary>
-        </member>
         <member name="T:Ninject.Framework.Mvc.NinjectControllerFactory">
             <summary>
             Creates <see cref="T:System.Web.Mvc.IController"/>s by activating them via the Ninject <see cref="T:Ninject.Core.IKernel"/>.
@@ -110,6 +60,56 @@
             Creates a Ninject kernel that will be used to inject objects.
             </summary>
             <returns>The created kernel.</returns>
+        </member>
+        <member name="T:Ninject.Framework.Mvc.KernelContainer">
+            <summary>
+            A static container for the <see cref="T:Ninject.Framework.Mvc.NinjectHttpApplication"/>'s kernel.
+            </summary>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.KernelContainer.Inject(System.Object)">
+            <summary>
+            Injects the specified instance by using the container's kernel.
+            </summary>
+            <param name="instance">The instance to inject.</param>
+        </member>
+        <member name="P:Ninject.Framework.Mvc.KernelContainer.Kernel">
+            <summary>
+            Gets or sets the kernel that is used in the application.
+            </summary>
+        </member>
+        <member name="T:Ninject.Framework.Mvc.AutoControllerModule">
+            <summary>
+            A module that automatically loads and registers all MVC controllers in specific assemblies.
+            </summary>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.AutoControllerModule.#ctor(System.Collections.Generic.IEnumerable{System.Reflection.Assembly})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ninject.Framework.Mvc.AutoControllerModule"/> class.
+            </summary>
+            <param name="assemblies">The assemblies to scan for controllers.</param>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.AutoControllerModule.#ctor(System.Reflection.Assembly[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ninject.Framework.Mvc.AutoControllerModule"/> class.
+            </summary>
+            <param name="assemblies">The assemblies to scan for controllers.</param>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.AutoControllerModule.#ctor(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ninject.Framework.Mvc.AutoControllerModule"/> class.
+            </summary>
+            <param name="assemblyNames">The names of assemblies which should be scanned for controllers.</param>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.AutoControllerModule.#ctor(System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ninject.Framework.Mvc.AutoControllerModule"/> class.
+            </summary>
+            <param name="assemblyNames">The names of assemblies which should be scanned for controllers.</param>
+        </member>
+        <member name="M:Ninject.Framework.Mvc.AutoControllerModule.Load">
+            <summary>
+            Loads the module into the kernel.
+            </summary>
         </member>
     </members>
 </doc>

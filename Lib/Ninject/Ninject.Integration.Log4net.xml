@@ -115,6 +115,17 @@
             Gets a value indicating whether messages with Fatal severity should be logged.
             </summary>
         </member>
+        <member name="T:Ninject.Integration.Log4net.Log4netModule">
+            <summary>
+            Extends the functionality of the kernel, providing integration between the Ninject
+            logging infrastructure and log4net.
+            </summary>
+        </member>
+        <member name="M:Ninject.Integration.Log4net.Log4netModule.Load">
+            <summary>
+            Loads the module into the kernel.
+            </summary>
+        </member>
         <member name="T:Ninject.Integration.Log4net.Infrastructure.Log4netLoggerFactory">
             <summary>
             An implementation of a logger factory that creates <see cref="T:Ninject.Integration.Log4net.Infrastructure.Log4netLogger"/>s.
@@ -126,17 +137,6 @@
             </summary>
             <param name="type">The type to create the logger for.</param>
             <returns>The newly-created logger.</returns>
-        </member>
-        <member name="T:Ninject.Integration.Log4net.Log4netModule">
-            <summary>
-            Extends the functionality of the kernel, providing integration between the Ninject
-            logging infrastructure and log4net.
-            </summary>
-        </member>
-        <member name="M:Ninject.Integration.Log4net.Log4netModule.Load">
-            <summary>
-            Loads the module into the kernel.
-            </summary>
         </member>
     </members>
 </doc>

@@ -4,16 +4,11 @@
         <name>Ninject.Framework.WinForms</name>
     </assembly>
     <members>
-        <member name="T:Ninject.Framework.WinForms.IPresenter">
+        <member name="T:Ninject.Framework.WinForms.PresentedControl`1">
             <summary>
-            An abstract definition of a presenter.
+            A <see cref="T:System.Windows.Forms.Control"/> that is managed by a presenter.
             </summary>
-        </member>
-        <member name="M:Ninject.Framework.WinForms.IPresenter.SetView(Ninject.Framework.WinForms.IView)">
-            <summary>
-            Injects the view into the presenter.
-            </summary>
-            <param name="view">The view to associate with the presenter.</param>
+            <typeparam name="TPresenter">The type of the presenter.</typeparam>
         </member>
         <member name="T:Ninject.Framework.WinForms.IView">
             <summary>
@@ -24,12 +19,6 @@
             <summary>
             Occurs when the view is first displayed.
             </summary>
-        </member>
-        <member name="T:Ninject.Framework.WinForms.PresentedControl`1">
-            <summary>
-            A <see cref="T:System.Windows.Forms.Control"/> that is managed by a presenter.
-            </summary>
-            <typeparam name="TPresenter">The type of the presenter.</typeparam>
         </member>
         <member name="M:Ninject.Framework.WinForms.PresentedControl`1.OnParentChanged(System.EventArgs)">
             <summary>
@@ -128,6 +117,56 @@
             Gets or sets the logger associated with the object.
             </summary>
         </member>
+        <member name="T:Ninject.Framework.WinForms.PresenterBase`1">
+            <summary>
+            The baseline definition of a presenter.
+            </summary>
+            <typeparam name="TView">The type of the view that the presenter manages.</typeparam>
+        </member>
+        <member name="T:Ninject.Framework.WinForms.IPresenter">
+            <summary>
+            An abstract definition of a presenter.
+            </summary>
+        </member>
+        <member name="M:Ninject.Framework.WinForms.IPresenter.SetView(Ninject.Framework.WinForms.IView)">
+            <summary>
+            Injects the view into the presenter.
+            </summary>
+            <param name="view">The view to associate with the presenter.</param>
+        </member>
+        <member name="M:Ninject.Framework.WinForms.PresenterBase`1.Dispose(System.Boolean)">
+            <summary>
+            Releases all resources currently held by the object.
+            </summary>
+            <param name="disposing"><see langword="True"/> if managed objects should be disposed, otherwise <see langword="false"/>.</param>
+        </member>
+        <member name="M:Ninject.Framework.WinForms.PresenterBase`1.OnViewConnected(`0)">
+            <summary>
+            Called when a view is connected to the presenter.
+            </summary>
+            <param name="view">The view that was connected.</param>
+        </member>
+        <member name="M:Ninject.Framework.WinForms.PresenterBase`1.OnViewDisconnected(`0)">
+            <summary>
+            Called when a view is disconnected from the presenter.
+            </summary>
+            <param name="view">The view that was disconnected.</param>
+        </member>
+        <member name="M:Ninject.Framework.WinForms.PresenterBase`1.OnViewShown">
+            <summary>
+            Called when the view is first displayed.
+            </summary>
+        </member>
+        <member name="P:Ninject.Framework.WinForms.PresenterBase`1.View">
+            <summary>
+            Gets or sets the view that the presenter should manage.
+            </summary>
+        </member>
+        <member name="P:Ninject.Framework.WinForms.PresenterBase`1.Logger">
+            <summary>
+            Gets or sets the logger associated with the object.
+            </summary>
+        </member>
         <member name="T:Ninject.Framework.WinForms.PresentedUserControl`1">
             <summary>
             A <see cref="T:System.Windows.Forms.UserControl"/> that is managed by a presenter.
@@ -165,45 +204,6 @@
         <member name="E:Ninject.Framework.WinForms.PresentedUserControl`1.Shown">
             <summary>
             Occurs when the view is first displayed.
-            </summary>
-        </member>
-        <member name="T:Ninject.Framework.WinForms.PresenterBase`1">
-            <summary>
-            The baseline definition of a presenter.
-            </summary>
-            <typeparam name="TView">The type of the view that the presenter manages.</typeparam>
-        </member>
-        <member name="M:Ninject.Framework.WinForms.PresenterBase`1.Dispose(System.Boolean)">
-            <summary>
-            Releases all resources currently held by the object.
-            </summary>
-            <param name="disposing"><see langword="True"/> if managed objects should be disposed, otherwise <see langword="false"/>.</param>
-        </member>
-        <member name="M:Ninject.Framework.WinForms.PresenterBase`1.OnViewConnected(`0)">
-            <summary>
-            Called when a view is connected to the presenter.
-            </summary>
-            <param name="view">The view that was connected.</param>
-        </member>
-        <member name="M:Ninject.Framework.WinForms.PresenterBase`1.OnViewDisconnected(`0)">
-            <summary>
-            Called when a view is disconnected from the presenter.
-            </summary>
-            <param name="view">The view that was disconnected.</param>
-        </member>
-        <member name="M:Ninject.Framework.WinForms.PresenterBase`1.OnViewShown">
-            <summary>
-            Called when the view is first displayed.
-            </summary>
-        </member>
-        <member name="P:Ninject.Framework.WinForms.PresenterBase`1.View">
-            <summary>
-            Gets or sets the view that the presenter should manage.
-            </summary>
-        </member>
-        <member name="P:Ninject.Framework.WinForms.PresenterBase`1.Logger">
-            <summary>
-            Gets or sets the logger associated with the object.
             </summary>
         </member>
     </members>

@@ -44,7 +44,7 @@ namespace OAuth.Web
 
   
     private static ISignatureGenerator SignatureGenerator;
-    const string UnreservedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.~";
+    const string UnreservedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.~+";
     public OAuthWebRequestSigner(ISignatureGenerator signatureGenerator)
     {
       SignatureGenerator = signatureGenerator;
@@ -62,7 +62,7 @@ namespace OAuth.Web
       //sort out a clean request
       var oauthParameters = parameters.Where(p => oauthBaseSignatureParams.Contains(p.Key)).Concat(new []{new QueryParameter(Parameters.OAuth_Signature,signature)});
       var oauthExemptQueryParameters = HttpUtility.ParseQueryString(request.RequestUri.Query).ToQueryParameters().Where(p => !oauthBaseSignatureParams.Contains(p.Key));
-      if (request.Method == "POST" || request.Method == "PUT")
+      if (request.Method == "POST")
       {
         IEnumerable<QueryParameter> oauthExemptFormParameters = request.Form.Where(p => !oauthBaseSignatureParams.Contains(p.Key)).ToList();
         request.Form.Clear();
@@ -72,7 +72,7 @@ namespace OAuth.Web
       {
         request.Headers.Add(Parameters.OAuth_Authorization_Header,GenerateOAuthHeader(oauthParameters));
       }
-      else if(request.Method == "POST" || request.Method == "PUT")
+      else if(request.Method == "POST")
       {
         request.Form.AddRange(oauthParameters);
       }
@@ -123,7 +123,7 @@ namespace OAuth.Web
     {
       var parameters = new List<QueryParameter>();
       parameters.AddRange(GetQueryStringParameters(request.RequestUri));
-      if (request.Method == "POST" || request.Method == "PUT")
+      if (request.Method == "POST")
       {
         parameters.AddRange(request.Form);
       }

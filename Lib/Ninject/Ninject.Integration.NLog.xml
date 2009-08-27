@@ -4,6 +4,29 @@
         <name>Ninject.Integration.NLog</name>
     </assembly>
     <members>
+        <member name="T:Ninject.Integration.NLog.Infrastructure.NLogLoggerFactory">
+            <summary>
+            An implementation of a logger factory that creates <see cref="T:Ninject.Integration.NLog.Infrastructure.NLogLogger"/>s.
+            </summary>
+        </member>
+        <member name="M:Ninject.Integration.NLog.Infrastructure.NLogLoggerFactory.CreateLogger(System.Type)">
+            <summary>
+            Creates a logger for the specified type.
+            </summary>
+            <param name="type">The type to create the logger for.</param>
+            <returns>The newly-created logger.</returns>
+        </member>
+        <member name="T:Ninject.Integration.NLog.NLogModule">
+            <summary>
+            Extends the functionality of the kernel, providing integration between the Ninject
+            logging infrastructure and nlog.
+            </summary>
+        </member>
+        <member name="M:Ninject.Integration.NLog.NLogModule.Load">
+            <summary>
+            Loads the module into the kernel.
+            </summary>
+        </member>
         <member name="T:Ninject.Integration.NLog.Infrastructure.NLogLogger">
             <summary>
             A logger that integrates with nlog, passing all messages to a <see cref="T:NLog.Logger"/>.
@@ -113,29 +136,6 @@
         <member name="P:Ninject.Integration.NLog.Infrastructure.NLogLogger.IsFatalEnabled">
             <summary>
             Gets a value indicating whether messages with Fatal severity should be logged.
-            </summary>
-        </member>
-        <member name="T:Ninject.Integration.NLog.Infrastructure.NLogLoggerFactory">
-            <summary>
-            An implementation of a logger factory that creates <see cref="T:Ninject.Integration.NLog.Infrastructure.NLogLogger"/>s.
-            </summary>
-        </member>
-        <member name="M:Ninject.Integration.NLog.Infrastructure.NLogLoggerFactory.CreateLogger(System.Type)">
-            <summary>
-            Creates a logger for the specified type.
-            </summary>
-            <param name="type">The type to create the logger for.</param>
-            <returns>The newly-created logger.</returns>
-        </member>
-        <member name="T:Ninject.Integration.NLog.NLogModule">
-            <summary>
-            Extends the functionality of the kernel, providing integration between the Ninject
-            logging infrastructure and nlog.
-            </summary>
-        </member>
-        <member name="M:Ninject.Integration.NLog.NLogModule.Load">
-            <summary>
-            Loads the module into the kernel.
             </summary>
         </member>
     </members>

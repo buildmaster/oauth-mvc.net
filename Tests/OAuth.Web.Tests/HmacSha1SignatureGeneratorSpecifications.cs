@@ -39,5 +39,14 @@ namespace OAuth.Web.Tests
       Assert.Equal("lm9WewpOaP17tgsmNONhnYt1oaA=", signature);
 
     }
+      [Fact]
+      public void correct_signature_for_base_string()
+      {
+          var signatureGenerator = new HmacSha1SignatureGenerator();
+          var signature = signatureGenerator.Generate("NDYWNGMZMZG5NWZHNDYZMJHIMTM4MD&",
+                                                      "POST&http%3A%2F%2Fapi.xero.test%2Foauth%2FRequestToken&oauth_callback%3Dhttp%253A%252F%252Fapi.xero.test%252FTestHarness%252FAuthorised%26oauth_consumer_key%3DMJRMYWE1ODIWMMEZNGRKMGI5MDG0ZD%26oauth_nonce%3Dc7fef605-2f23-48f0-9b7a-ecca28c64941%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1249607199%26oauth_version%3D1.0");
+          Assert.Equal("", signature);
+
+      }
   }
 }

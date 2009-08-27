@@ -17,5 +17,8 @@ namespace OAuth.Web
     IOAuthToken Token { get; set; }
     bool UseAuthorizationHeader { get; }
     IWebProxy Proxy { get; set; }
+      string UserAgent { get; set; }
+      int Timeout { get; set; }
+      DecompressionMethods Compression { get; set; }
   }
 }

@@ -4,40 +4,6 @@
         <name>Ninject.Extensions.MessageBroker</name>
     </assembly>
     <members>
-        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.PublicationDirective">
-            <summary>
-            A directive that describes a message publication.
-            </summary>
-        </member>
-        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.PublicationDirective.#ctor(System.String,System.Reflection.EventInfo)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Ninject.Extensions.MessageBroker.Infrastructure.PublicationDirective"/> class.
-            </summary>
-            <param name="channel">The name of the channel that is to be published to.</param>
-            <param name="evt">The event that will be published to the channel.</param>
-        </member>
-        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.PublicationDirective.BuildKey">
-            <summary>
-            Builds the value that uniquely identifies the directive. This is called the first time
-            the key is accessed, and then cached in the directive.
-            </summary>
-            <returns>The directive's unique key.</returns>
-            <remarks>
-            This exists because most directives' keys are based on reading member information,
-            especially parameters. Since it's a relatively expensive procedure, it shouldn't be
-            done each time the key is accessed.
-            </remarks>
-        </member>
-        <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.PublicationDirective.Channel">
-            <summary>
-            Gets the name of the channel that is to be published to.
-            </summary>
-        </member>
-        <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.PublicationDirective.Event">
-            <summary>
-            Gets the event that will be published to the channel.
-            </summary>
-        </member>
         <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.SubscriptionDirective">
             <summary>
             A directive that describes a message subscription.
@@ -76,6 +42,90 @@
         <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.SubscriptionDirective.Thread">
             <summary>
             Gets the thread on which the message should be delivered.
+            </summary>
+        </member>
+        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessageSubscriptionFactory">
+            <summary>
+            Creates <see cref="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessageSubscription"/>s.
+            </summary>
+        </member>
+        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.IMessageSubscriptionFactory.Create(Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannel,System.Object,Ninject.Core.Injection.IMethodInjector,Ninject.Extensions.MessageBroker.DeliveryThread)">
+            <summary>
+            Creates a subscription for the specified channel.
+            </summary>
+            <param name="channel">The channel that will be subscribed to.</param>
+            <param name="subscriber">The object that will receive events from the channel.</param>
+            <param name="injector">The injector that will be called to trigger the event handler.</param>
+            <param name="deliveryThread">The thread on which the subscription will be delivered.</param>
+            <returns>The newly-created subscription.</returns>
+        </member>
+        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessageSubscriptionFactory">
+            <summary>
+            The stock definition of a <see cref="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessageSubscriptionFactory"/>.
+            </summary>
+        </member>
+        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessageSubscriptionFactory.Create(Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannel,System.Object,Ninject.Core.Injection.IMethodInjector,Ninject.Extensions.MessageBroker.DeliveryThread)">
+            <summary>
+            Creates a subscription for the specified channel.
+            </summary>
+            <param name="channel">The channel that will be subscribed to.</param>
+            <param name="subscriber">The object that will receive events from the channel.</param>
+            <param name="injector">The injector that will be called to trigger the event handler.</param>
+            <param name="deliveryThread">The thread on which the subscription will be delivered.</param>
+            <returns>The newly-created subscription.</returns>
+        </member>
+        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublicationFactory">
+            <summary>
+            Creates <see cref="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublication"/>s.
+            </summary>
+        </member>
+        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublicationFactory.Create(Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannel,System.Object,System.Reflection.EventInfo)">
+            <summary>
+            Creates a publication for the specified channel.
+            </summary>
+            <param name="channel">The channel that will receive the publications.</param>
+            <param name="publisher">The object that will publish events.</param>
+            <param name="evt">The event that will be published to the channel.</param>
+            <returns>The newly-created publicaton.</returns>
+        </member>
+        <member name="T:Ninject.Extensions.MessageBroker.MessageBrokerModule">
+            <summary>
+            Adds functionality to the kernel to support channel-based pub/sub messaging.
+            </summary>
+        </member>
+        <member name="M:Ninject.Extensions.MessageBroker.MessageBrokerModule.Load">
+            <summary>
+            Loads the module into the kernel.
+            </summary>
+        </member>
+        <member name="M:Ninject.Extensions.MessageBroker.MessageBrokerModule.Unload">
+            <summary>
+            Unloads the module from the kernel.
+            </summary>
+        </member>
+        <member name="P:Ninject.Extensions.MessageBroker.MessageBrokerModule.MessageBroker">
+            <summary>
+            Gets or sets the message broker.
+            </summary>
+        </member>
+        <member name="P:Ninject.Extensions.MessageBroker.MessageBrokerModule.ChannelFactory">
+            <summary>
+            Gets or sets the channel factory.
+            </summary>
+        </member>
+        <member name="P:Ninject.Extensions.MessageBroker.MessageBrokerModule.PublicationFactory">
+            <summary>
+            Gets or sets the publication factory.
+            </summary>
+        </member>
+        <member name="P:Ninject.Extensions.MessageBroker.MessageBrokerModule.SubscriptionFactory">
+            <summary>
+            Gets or sets the subscription factory.
+            </summary>
+        </member>
+        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessageChannel">
+            <summary>
+            A message channel that can receive events from publishers and transfer them to subscribers.
             </summary>
         </member>
         <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannel">
@@ -165,23 +215,6 @@
         <member name="E:Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannel.EnabledChanged">
             <summary>
             Indicates that the enabled property of the channel was changed.
-            </summary>
-        </member>
-        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannelFactory">
-            <summary>
-            Creates <see cref="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannel"/>s.
-            </summary>
-        </member>
-        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannelFactory.Create(System.String)">
-            <summary>
-            Creates a channel with the specified name.
-            </summary>
-            <param name="name">The channel's name.</param>
-            <returns>The newly-created channel.</returns>
-        </member>
-        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessageChannel">
-            <summary>
-            A message channel that can receive events from publishers and transfer them to subscribers.
             </summary>
         </member>
         <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessageChannel.OnReceivedMessage(System.EventArgs)">
@@ -293,10 +326,77 @@
             Occurs when the <see cref="P:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessageChannel.IsEnabled"/> property of the channel changes.
             </summary>
         </member>
+        <member name="T:Ninject.Extensions.MessageBroker.DeliveryThread">
+            <summary>
+            Selects the thread context that a message should be delivered on.
+            </summary>
+        </member>
+        <member name="F:Ninject.Extensions.MessageBroker.DeliveryThread.Current">
+            <summary>
+            Indicates that the message should be delivered on the current thread.
+            </summary>
+        </member>
+        <member name="F:Ninject.Extensions.MessageBroker.DeliveryThread.Background">
+            <summary>
+            Indicates that the message should be delivered asynchronously via the <see cref="T:System.Threading.ThreadPool"/>.
+            </summary>
+        </member>
+        <member name="F:Ninject.Extensions.MessageBroker.DeliveryThread.UserInterface">
+            <summary>
+            Indicates that the message should be delivered on the thread that owns the user interface,
+            or the current thread if no synchronization context exists.
+            </summary>
+        </member>
+        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.PublicationDirective">
+            <summary>
+            A directive that describes a message publication.
+            </summary>
+        </member>
+        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.PublicationDirective.#ctor(System.String,System.Reflection.EventInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ninject.Extensions.MessageBroker.Infrastructure.PublicationDirective"/> class.
+            </summary>
+            <param name="channel">The name of the channel that is to be published to.</param>
+            <param name="evt">The event that will be published to the channel.</param>
+        </member>
+        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.PublicationDirective.BuildKey">
+            <summary>
+            Builds the value that uniquely identifies the directive. This is called the first time
+            the key is accessed, and then cached in the directive.
+            </summary>
+            <returns>The directive's unique key.</returns>
+            <remarks>
+            This exists because most directives' keys are based on reading member information,
+            especially parameters. Since it's a relatively expensive procedure, it shouldn't be
+            done each time the key is accessed.
+            </remarks>
+        </member>
+        <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.PublicationDirective.Channel">
+            <summary>
+            Gets the name of the channel that is to be published to.
+            </summary>
+        </member>
+        <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.PublicationDirective.Event">
+            <summary>
+            Gets the event that will be published to the channel.
+            </summary>
+        </member>
         <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessageChannelFactory">
             <summary>
             The stock implementation of a <see cref="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannelFactory"/>.
             </summary>
+        </member>
+        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannelFactory">
+            <summary>
+            Creates <see cref="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannel"/>s.
+            </summary>
+        </member>
+        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannelFactory.Create(System.String)">
+            <summary>
+            Creates a channel with the specified name.
+            </summary>
+            <param name="name">The channel's name.</param>
+            <returns>The newly-created channel.</returns>
         </member>
         <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessageChannelFactory.Create(System.String)">
             <summary>
@@ -305,87 +405,31 @@
             <param name="name">The channel's name.</param>
             <returns>The newly-created channel.</returns>
         </member>
-        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublication">
+        <member name="T:Ninject.Extensions.MessageBroker.Properties.Resources">
             <summary>
-            A message publication handled by a message broker.
+              A strongly-typed resource class, for looking up localized strings, etc.
             </summary>
         </member>
-        <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublication.Channel">
+        <member name="P:Ninject.Extensions.MessageBroker.Properties.Resources.ResourceManager">
             <summary>
-            Gets the channel associated with the publication.
+              Returns the cached ResourceManager instance used by this class.
             </summary>
         </member>
-        <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublication.Publisher">
+        <member name="P:Ninject.Extensions.MessageBroker.Properties.Resources.Culture">
             <summary>
-            Gets the object that publishes events to the channel.
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
             </summary>
         </member>
-        <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublication.Event">
+        <member name="P:Ninject.Extensions.MessageBroker.Properties.Resources.Ex_MessageChannelDoesNotExist">
             <summary>
-            Gets the event that will be published to the channel.
+              Looks up a localized string similar to The kernel messaging channel &apos;{0}&apos; has not been opened..
             </summary>
         </member>
-        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublicationFactory">
+        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessageSubscription">
             <summary>
-            Creates <see cref="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublication"/>s.
+            The stock implementation of a <see cref="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessageSubscription"/>.
             </summary>
-        </member>
-        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublicationFactory.Create(Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannel,System.Object,System.Reflection.EventInfo)">
-            <summary>
-            Creates a publication for the specified channel.
-            </summary>
-            <param name="channel">The channel that will receive the publications.</param>
-            <param name="publisher">The object that will publish events.</param>
-            <param name="evt">The event that will be published to the channel.</param>
-            <returns>The newly-created publicaton.</returns>
-        </member>
-        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessagePublication">
-            <summary>
-            The stock definition of a <see cref="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublication"/>.
-            </summary>
-        </member>
-        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessagePublication.Dispose(System.Boolean)">
-            <summary>
-            Releases all resources held by the object.
-            </summary>
-            <param name="disposing"><see langword="True"/> if managed objects should be disposed, otherwise <see langword="false"/>.</param>
-        </member>
-        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessagePublication.#ctor(Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannel,System.Object,System.Reflection.EventInfo)">
-            <summary>
-            Creates a new instance of the StandardMessagePublication class.
-            </summary>
-            <param name="channel">The channel associated with the publication.</param>
-            <param name="publisher">The object that publishes events to the channel.</param>
-            <param name="evt">The event that will be published to the channel.</param>
-        </member>
-        <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessagePublication.Channel">
-            <summary>
-            Gets the channel associated with the publication.
-            </summary>
-        </member>
-        <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessagePublication.Publisher">
-            <summary>
-            Gets the object that publishes events to the channel.
-            </summary>
-        </member>
-        <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessagePublication.Event">
-            <summary>
-            Gets the event that will be published to the channel.
-            </summary>
-        </member>
-        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessagePublicationFactory">
-            <summary>
-            Creates <see cref="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublication"/>s.
-            </summary>
-        </member>
-        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessagePublicationFactory.Create(Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannel,System.Object,System.Reflection.EventInfo)">
-            <summary>
-            Creates a publication for the specified channel.
-            </summary>
-            <param name="channel">The channel that will receive the publications.</param>
-            <param name="publisher">The object that will publish events.</param>
-            <param name="evt">The event that will be published to the channel.</param>
-            <returns>The newly-created publicaton.</returns>
         </member>
         <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessageSubscription">
             <summary>
@@ -412,26 +456,6 @@
         <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.IMessageSubscription.Injector">
             <summary>
             Gets the injector that will be triggered when an event occurs.
-            </summary>
-        </member>
-        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessageSubscriptionFactory">
-            <summary>
-            Creates <see cref="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessageSubscription"/>s.
-            </summary>
-        </member>
-        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.IMessageSubscriptionFactory.Create(Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannel,System.Object,Ninject.Core.Injection.IMethodInjector,Ninject.Extensions.MessageBroker.DeliveryThread)">
-            <summary>
-            Creates a subscription for the specified channel.
-            </summary>
-            <param name="channel">The channel that will be subscribed to.</param>
-            <param name="subscriber">The object that will receive events from the channel.</param>
-            <param name="injector">The injector that will be called to trigger the event handler.</param>
-            <param name="deliveryThread">The thread on which the subscription will be delivered.</param>
-            <returns>The newly-created subscription.</returns>
-        </member>
-        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessageSubscription">
-            <summary>
-            The stock implementation of a <see cref="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessageSubscription"/>.
             </summary>
         </member>
         <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessageSubscription.Dispose(System.Boolean)">
@@ -471,57 +495,25 @@
             Gets the injector that will be triggered when an event occurs.
             </summary>
         </member>
-        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessageSubscriptionFactory">
+        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublication">
             <summary>
-            The stock definition of a <see cref="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessageSubscriptionFactory"/>.
+            A message publication handled by a message broker.
             </summary>
         </member>
-        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessageSubscriptionFactory.Create(Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannel,System.Object,Ninject.Core.Injection.IMethodInjector,Ninject.Extensions.MessageBroker.DeliveryThread)">
+        <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublication.Channel">
             <summary>
-            Creates a subscription for the specified channel.
-            </summary>
-            <param name="channel">The channel that will be subscribed to.</param>
-            <param name="subscriber">The object that will receive events from the channel.</param>
-            <param name="injector">The injector that will be called to trigger the event handler.</param>
-            <param name="deliveryThread">The thread on which the subscription will be delivered.</param>
-            <returns>The newly-created subscription.</returns>
-        </member>
-        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.EventBindingStrategy">
-            <summary>
-            An activation strategy that binds events to message channels after instances are initialized,
-            and unbinds them before they are destroyed.
+            Gets the channel associated with the publication.
             </summary>
         </member>
-        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.EventBindingStrategy.AfterInitialize(Ninject.Core.Activation.IContext)">
+        <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublication.Publisher">
             <summary>
-            Executed after the instance is initialized.
-            </summary>
-            <param name="context">The activation context.</param>
-            <returns>A value indicating whether to proceed or stop the execution of the strategy chain.</returns>
-        </member>
-        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.EventBindingStrategy.BeforeDestroy(Ninject.Core.Activation.IContext)">
-            <summary>
-            Executed before the instance is destroyed.
-            </summary>
-            <param name="context">The activation context.</param>
-            <returns>A value indicating whether to proceed or stop the execution of the strategy chain.</returns>
-        </member>
-        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.EventReflectionStrategy">
-            <summary>
-            A planning strategy that examines types via reflection to determine if there are any
-            message publications or subscriptions defined.
+            Gets the object that publishes events to the channel.
             </summary>
         </member>
-        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.EventReflectionStrategy.Build(Ninject.Core.Binding.IBinding,System.Type,Ninject.Core.Planning.IActivationPlan)">
+        <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublication.Event">
             <summary>
-            Executed to build the activation plan.
+            Gets the event that will be published to the channel.
             </summary>
-            <param name="binding">The binding that points at the type whose activation plan is being released.</param>
-            <param name="type">The type whose activation plan is being manipulated.</param>
-            <param name="plan">The activation plan that is being manipulated.</param>
-            <returns>
-            A value indicating whether to proceed or interrupt the strategy chain.
-            </returns>
         </member>
         <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessageBroker">
             <summary>
@@ -601,98 +593,76 @@
             </summary>
             <param name="name">The name of the channel to disable.</param>
         </member>
-        <member name="T:Ninject.Extensions.MessageBroker.Properties.Resources">
+        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.EventBindingStrategy">
             <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
+            An activation strategy that binds events to message channels after instances are initialized,
+            and unbinds them before they are destroyed.
             </summary>
         </member>
-        <member name="P:Ninject.Extensions.MessageBroker.Properties.Resources.ResourceManager">
+        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.EventBindingStrategy.AfterInitialize(Ninject.Core.Activation.IContext)">
             <summary>
-              Returns the cached ResourceManager instance used by this class.
+            Executed after the instance is initialized.
+            </summary>
+            <param name="context">The activation context.</param>
+            <returns>A value indicating whether to proceed or stop the execution of the strategy chain.</returns>
+        </member>
+        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.EventBindingStrategy.BeforeDestroy(Ninject.Core.Activation.IContext)">
+            <summary>
+            Executed before the instance is destroyed.
+            </summary>
+            <param name="context">The activation context.</param>
+            <returns>A value indicating whether to proceed or stop the execution of the strategy chain.</returns>
+        </member>
+        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessagePublication">
+            <summary>
+            The stock definition of a <see cref="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublication"/>.
             </summary>
         </member>
-        <member name="P:Ninject.Extensions.MessageBroker.Properties.Resources.Culture">
+        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessagePublication.Dispose(System.Boolean)">
             <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
+            Releases all resources held by the object.
+            </summary>
+            <param name="disposing"><see langword="True"/> if managed objects should be disposed, otherwise <see langword="false"/>.</param>
+        </member>
+        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessagePublication.#ctor(Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannel,System.Object,System.Reflection.EventInfo)">
+            <summary>
+            Creates a new instance of the StandardMessagePublication class.
+            </summary>
+            <param name="channel">The channel associated with the publication.</param>
+            <param name="publisher">The object that publishes events to the channel.</param>
+            <param name="evt">The event that will be published to the channel.</param>
+        </member>
+        <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessagePublication.Channel">
+            <summary>
+            Gets the channel associated with the publication.
             </summary>
         </member>
-        <member name="P:Ninject.Extensions.MessageBroker.Properties.Resources.Ex_MessageChannelDoesNotExist">
+        <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessagePublication.Publisher">
             <summary>
-              Looks up a localized string similar to The kernel messaging channel &apos;{0}&apos; has not been opened..
+            Gets the object that publishes events to the channel.
             </summary>
         </member>
-        <member name="T:Ninject.Extensions.MessageBroker.DeliveryThread">
+        <member name="P:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessagePublication.Event">
             <summary>
-            Selects the thread context that a message should be delivered on.
+            Gets the event that will be published to the channel.
             </summary>
         </member>
-        <member name="F:Ninject.Extensions.MessageBroker.DeliveryThread.Current">
+        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.EventReflectionStrategy">
             <summary>
-            Indicates that the message should be delivered on the current thread.
+            A planning strategy that examines types via reflection to determine if there are any
+            message publications or subscriptions defined.
             </summary>
         </member>
-        <member name="F:Ninject.Extensions.MessageBroker.DeliveryThread.Background">
+        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.EventReflectionStrategy.Build(Ninject.Core.Binding.IBinding,System.Type,Ninject.Core.Planning.IActivationPlan)">
             <summary>
-            Indicates that the message should be delivered asynchronously via the <see cref="T:System.Threading.ThreadPool"/>.
+            Executed to build the activation plan.
             </summary>
-        </member>
-        <member name="F:Ninject.Extensions.MessageBroker.DeliveryThread.UserInterface">
-            <summary>
-            Indicates that the message should be delivered on the thread that owns the user interface,
-            or the current thread if no synchronization context exists.
-            </summary>
-        </member>
-        <member name="T:Ninject.Extensions.MessageBroker.MessageBrokerModule">
-            <summary>
-            Adds functionality to the kernel to support channel-based pub/sub messaging.
-            </summary>
-        </member>
-        <member name="M:Ninject.Extensions.MessageBroker.MessageBrokerModule.Load">
-            <summary>
-            Loads the module into the kernel.
-            </summary>
-        </member>
-        <member name="M:Ninject.Extensions.MessageBroker.MessageBrokerModule.Unload">
-            <summary>
-            Unloads the module from the kernel.
-            </summary>
-        </member>
-        <member name="P:Ninject.Extensions.MessageBroker.MessageBrokerModule.MessageBroker">
-            <summary>
-            Gets or sets the message broker.
-            </summary>
-        </member>
-        <member name="P:Ninject.Extensions.MessageBroker.MessageBrokerModule.ChannelFactory">
-            <summary>
-            Gets or sets the channel factory.
-            </summary>
-        </member>
-        <member name="P:Ninject.Extensions.MessageBroker.MessageBrokerModule.PublicationFactory">
-            <summary>
-            Gets or sets the publication factory.
-            </summary>
-        </member>
-        <member name="P:Ninject.Extensions.MessageBroker.MessageBrokerModule.SubscriptionFactory">
-            <summary>
-            Gets or sets the subscription factory.
-            </summary>
-        </member>
-        <member name="T:Ninject.Extensions.MessageBroker.PublishAttribute">
-            <summary>
-            Indicates that the decorated event should be published into a message broker channel.
-            </summary>
-        </member>
-        <member name="M:Ninject.Extensions.MessageBroker.PublishAttribute.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Ninject.Extensions.MessageBroker.PublishAttribute"/> class.
-            </summary>
-            <param name="channel">The name of the channel to publish to.</param>
-        </member>
-        <member name="P:Ninject.Extensions.MessageBroker.PublishAttribute.Channel">
-            <summary>
-            Gets the name of the channel to publish to.
-            </summary>
+            <param name="binding">The binding that points at the type whose activation plan is being released.</param>
+            <param name="type">The type whose activation plan is being manipulated.</param>
+            <param name="plan">The activation plan that is being manipulated.</param>
+            <returns>
+            A value indicating whether to proceed or interrupt the strategy chain.
+            </returns>
         </member>
         <member name="T:Ninject.Extensions.MessageBroker.SubscribeAttribute">
             <summary>
@@ -715,6 +685,36 @@
             <summary>
             Gets or sets the thread that the message should be delivered on.
             </summary>
+        </member>
+        <member name="T:Ninject.Extensions.MessageBroker.PublishAttribute">
+            <summary>
+            Indicates that the decorated event should be published into a message broker channel.
+            </summary>
+        </member>
+        <member name="M:Ninject.Extensions.MessageBroker.PublishAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ninject.Extensions.MessageBroker.PublishAttribute"/> class.
+            </summary>
+            <param name="channel">The name of the channel to publish to.</param>
+        </member>
+        <member name="P:Ninject.Extensions.MessageBroker.PublishAttribute.Channel">
+            <summary>
+            Gets the name of the channel to publish to.
+            </summary>
+        </member>
+        <member name="T:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessagePublicationFactory">
+            <summary>
+            Creates <see cref="T:Ninject.Extensions.MessageBroker.Infrastructure.IMessagePublication"/>s.
+            </summary>
+        </member>
+        <member name="M:Ninject.Extensions.MessageBroker.Infrastructure.StandardMessagePublicationFactory.Create(Ninject.Extensions.MessageBroker.Infrastructure.IMessageChannel,System.Object,System.Reflection.EventInfo)">
+            <summary>
+            Creates a publication for the specified channel.
+            </summary>
+            <param name="channel">The channel that will receive the publications.</param>
+            <param name="publisher">The object that will publish events.</param>
+            <param name="evt">The event that will be published to the channel.</param>
+            <returns>The newly-created publicaton.</returns>
         </member>
     </members>
 </doc>
