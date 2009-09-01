@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuth.Web", "Core\OAuth.Web
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuth.Web.Tests", "Tests\OAuth.Web.Tests\OAuth.Web.Tests.csproj", "{E6E80C62-49AB-462C-ADCF-72C35391389B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuth.Core", "Core\OAuth.Core\OAuth.Core.csproj", "{EB32621B-F70A-481C-9DF0-A7E69312C5C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{E6E80C62-49AB-462C-ADCF-72C35391389B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6E80C62-49AB-462C-ADCF-72C35391389B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6E80C62-49AB-462C-ADCF-72C35391389B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB32621B-F70A-481C-9DF0-A7E69312C5C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB32621B-F70A-481C-9DF0-A7E69312C5C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB32621B-F70A-481C-9DF0-A7E69312C5C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB32621B-F70A-481C-9DF0-A7E69312C5C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

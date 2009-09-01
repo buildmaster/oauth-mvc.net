@@ -3,8 +3,8 @@ using System.Collections.Specialized;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using DevDefined.OAuth.Framework;
-using DevDefined.OAuth.Provider;
+using OAuth.Core;
+using OAuth.Core.Interfaces;
 using OAuth.MVC.Library.Filters;
 using OAuth.MVC.Library.Results;
 using Rhino.Mocks;
@@ -13,20 +13,21 @@ using Xunit;
 
 namespace OAuth.MVC.Tests.Filters
 {
+    // ReSharper disable InconsistentNaming
   namespace OAuthSecuredAttributeSpecifications
   {
     public class OAuthOnAuthContext:IUseFixture<MockRepository>
     {
-      protected OAuthSecuredAttribute authFiliter;
-      protected AuthorizationContext filterContext;
-      protected Exception exception;
+      protected OAuthSecuredAttribute AuthFiliter;
+      protected AuthorizationContext FilterContext;
+      protected Exception Exception;
       protected IOAuthContextBuilder DefaultoAuthContextBuilder;
       protected IOAuthProvider DefaultoAuthPovider;
       protected IOAuthContext DefaultoAuthContext;
 
       public void SetFixture(MockRepository mocks)
       {
-        authFiliter = new OAuthSecuredAttribute();
+        AuthFiliter = new OAuthSecuredAttribute();
         DefaultoAuthContextBuilder = mocks.DynamicMock<IOAuthContextBuilder>();
         DefaultoAuthPovider = mocks.DynamicMock<IOAuthProvider>();
         var controllerBase = mocks.DynamicMock<ControllerBase>();
@@ -39,11 +40,11 @@ namespace OAuth.MVC.Tests.Filters
         
         DefaultoAuthContextBuilder.Stub(contextBuilder => contextBuilder.FromHttpRequest(mockHttpRequest)).Return(OAuthContext);
         SetupExpectations();
-        filterContext = new AuthorizationContext(controllerContext);
-        authFiliter.OAuthContextBuilder = OAuthContextBuilder;
-        authFiliter.OAuthProvider = OAuthPovider;
+        FilterContext = new AuthorizationContext(controllerContext);
+        AuthFiliter.OAuthContextBuilder = OAuthContextBuilder;
+        AuthFiliter.OAuthProvider = OAuthPovider;
         mocks.ReplayAll();
-        exception = Record.Exception(()=>authFiliter.OnAuthorization(filterContext));
+        Exception = Record.Exception(()=>AuthFiliter.OnAuthorization(FilterContext));
       }
 
       protected virtual void SetupExpectations()
@@ -65,12 +66,13 @@ namespace OAuth.MVC.Tests.Filters
         get { return DefaultoAuthPovider; }
       }
     }
+
     public class given_a_valid_oauth_request:OAuthOnAuthContext
     {
       [Fact]
       public void result_should_not_be_set()
       {
-        Assert.Null(filterContext.Result);
+        Assert.Null(FilterContext.Result);
       }      
     }
     public class given_an_invalid_oauth_request:OAuthOnAuthContext
@@ -78,7 +80,7 @@ namespace OAuth.MVC.Tests.Filters
       [Fact]
       public void result_should_be_oauth_exception_result()
       {
-        Assert.IsType<OAuthExceptionResult>(filterContext.Result);
+        Assert.IsType<OAuthExceptionResult>(FilterContext.Result);
       }
       protected override void SetupExpectations()
       {
@@ -100,7 +102,7 @@ namespace OAuth.MVC.Tests.Filters
       [Fact]
       public void null_reference_exception_should_be_thrown()
       {
-        Assert.IsType<NullReferenceException>(exception);
+        Assert.IsType<NullReferenceException>(Exception);
       }
     }
     public class given_an_oauth_request_filter_isnt_setup_with_oauth_provider_through_ioc : OAuthOnAuthContext
@@ -115,7 +117,7 @@ namespace OAuth.MVC.Tests.Filters
       [Fact]
       public void null_reference_exception_should_be_thrown()
       {
-        Assert.IsType<NullReferenceException>(exception);
+        Assert.IsType<NullReferenceException>(Exception);
       }
     }
 
@@ -167,8 +169,7 @@ namespace OAuth.MVC.Tests.Filters
       [Fact]
       public void oauth_header_should_be_added_to_existing_header()
       {
-        mockResponse.AssertWasNotCalled(response=>response.AddHeader("",""),options=>options.Constraints(Is.Equal("WWW-Authenticate"),Is.Anything()));
-        Assert.Equal(String.Format("NTLM\nOAuth Realm=\"{0}\"",DefaultRealm),headers["WWW-Authenticate"]);
+        mockResponse.AssertWasCalled(response=>response.AddHeader("",""),options=>options.Constraints(Is.Equal("WWW-Authenticate"),Is.Equal("OAuth Realm=\""+DefaultRealm+"\"")));
       }
     }
     public class given_an_oauth_request_hasnt_set_a_www_auth_header : OAuthOnResultExcecutedContext
@@ -181,4 +182,5 @@ namespace OAuth.MVC.Tests.Filters
       }
     }
   }
+  // ReSharper restore InconsistentNaming
 }

@@ -1,29 +1,28 @@
-using System;
 using System.Web.Mvc;
-using DevDefined.OAuth.Framework;
-using DevDefined.OAuth.Provider;
+using OAuth.Core;
+using OAuth.Core.Interfaces;
 using OAuth.MVC.Library.Results;
 
 namespace OAuth.MVC.Library.Controllers
 {
   public class OAuthController:Controller
   {
-    private readonly IOAuthContextBuilder oAuthContextBuilder;
-    private readonly IOAuthProvider oAuthProvider;
+    private readonly IOAuthContextBuilder _oAuthContextBuilder;
+    private readonly IOAuthProvider _oAuthProvider;
 
     public OAuthController(IOAuthContextBuilder oAuthContextBuilder,IOAuthProvider oAuthProvider)
     {
       
-      this.oAuthContextBuilder = oAuthContextBuilder;
-      this.oAuthProvider = oAuthProvider;
+      _oAuthContextBuilder = oAuthContextBuilder;
+      _oAuthProvider = oAuthProvider;
     }
 
     public ActionResult RequestToken()
     {
-      var oauthContext = oAuthContextBuilder.FromHttpRequest(Request);
+      var oauthContext = _oAuthContextBuilder.FromHttpRequest(Request);
       try
       {
-        var token = oAuthProvider.GrantRequestToken(oauthContext);
+        var token = _oAuthProvider.GrantRequestToken(oauthContext);
         return new OAuthTokenResult(token);
       }
       catch (OAuthException e)
@@ -34,10 +33,10 @@ namespace OAuth.MVC.Library.Controllers
     }
     public ActionResult AccessToken()
     {
-      var oauthContext = oAuthContextBuilder.FromHttpRequest(Request);
+      var oauthContext = _oAuthContextBuilder.FromHttpRequest(Request);
       try
       {
-        var token = oAuthProvider.ExchangeRequestTokenForAccessToken(oauthContext);
+        var token = _oAuthProvider.ExchangeRequestTokenForAccessToken(oauthContext);
         return new OAuthTokenResult(token);
       }
       catch (OAuthException e)

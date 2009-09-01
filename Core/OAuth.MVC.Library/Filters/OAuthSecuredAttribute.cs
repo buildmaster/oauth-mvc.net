@@ -1,9 +1,8 @@
 using System;
 using System.Web.Mvc;
-using System.Linq;
-using DevDefined.OAuth.Framework;
-using DevDefined.OAuth.Provider;
-using Ninject.Core;
+using Ninject;
+using OAuth.Core;
+using OAuth.Core.Interfaces;
 using OAuth.MVC.Library.Results;
 
 namespace OAuth.MVC.Library.Filters

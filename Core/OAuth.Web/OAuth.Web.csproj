@@ -46,21 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DateTimeUtility.cs" />
-    <Compile Include="HmacSha1SignatureGenerator.cs" />
     <Compile Include="IHttpWebRequestFactory.cs" />
     <Compile Include="INonceGenerator.cs" />
     <Compile Include="IOAuthToken.cs" />
     <Compile Include="IOAuthWebRequest.cs" />
-    <Compile Include="ISignatureGenerator.cs" />
     <Compile Include="ITimestampGenerator.cs" />
     <Compile Include="OAuthHttpWebRequest.cs" />
     <Compile Include="OAuthToken.cs" />
     <Compile Include="OAuthTokenResponse.cs" />
     <Compile Include="OAuthWebRequestSigner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Protocol.cs" />
-    <Compile Include="UriUtility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OAuth.Core\OAuth.Core.csproj">
+      <Project>{EB32621B-F70A-481C-9DF0-A7E69312C5C0}</Project>
+      <Name>OAuth.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

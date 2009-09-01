@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using DevDefined.OAuth.Storage;
 
 namespace OAuth.MVC.Sample.Controllers
 {
@@ -8,16 +7,18 @@ namespace OAuth.MVC.Sample.Controllers
   [HandleError]
   public class AccountController : Controller
   {
-    readonly TokenRepository tokenRepository;
+    readonly TokenRepository _tokenRepository;
 
     public AccountController(TokenRepository tokenRepository)
     {
-      this.tokenRepository = tokenRepository;
+      _tokenRepository = tokenRepository;
     }
 
+// ReSharper disable InconsistentNaming
     public ActionResult AuthoriseRequestToken(string oauth_token, string oauth_callback)
+// ReSharper restore InconsistentNaming
     {
-      var requestToken = tokenRepository.GetRequestToken(oauth_token);
+      var requestToken = _tokenRepository.GetRequestToken(oauth_token);
       if(requestToken!=null)
       {
         requestToken.AccessDenied = false;
@@ -31,9 +32,9 @@ namespace OAuth.MVC.Sample.Controllers
                               UserName = Guid.NewGuid().ToString(),
                             };
         requestToken.AccessToken = accessToken;
-        tokenRepository.SaveAccessToken(accessToken);
-        tokenRepository.SaveRequestToken(requestToken);
-        return new JsonResult(){Data=accessToken};
+        _tokenRepository.SaveAccessToken(accessToken);
+        _tokenRepository.SaveRequestToken(requestToken);
+        return new JsonResult {Data=accessToken};
       }
       return new EmptyResult();
      

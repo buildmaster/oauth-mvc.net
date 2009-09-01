@@ -1,7 +1,8 @@
 using System;
 using System.Web.Mvc;
-using DevDefined.OAuth.Framework;
-using Ninject.Core;
+using Ninject;
+using OAuth.Core.Interfaces;
+
 
 namespace OAuth.MVC.Library.Binders
 {

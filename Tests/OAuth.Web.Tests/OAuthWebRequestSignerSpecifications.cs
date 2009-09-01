@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using OAuth.Core.Signing;
 using Rhino.Mocks;
 using Xunit;
 
 namespace OAuth.Web.Tests
 {
+    // ReSharper disable InconsistentNaming
   namespace OAuthWebRequestSignerSpecifications
   {
     
@@ -383,6 +385,6 @@ namespace OAuth.Web.Tests
       }
     }
   }
-
+  // ReSharper restore InconsistentNaming
   
 }

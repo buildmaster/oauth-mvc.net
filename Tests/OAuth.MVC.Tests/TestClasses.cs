@@ -1,4 +1,5 @@
-using DevDefined.OAuth.Framework;
+
+using OAuth.Core.Interfaces;
 
 namespace OAuth.MVC.Tests
 {

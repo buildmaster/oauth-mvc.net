@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using DevDefined.OAuth.Framework;
+using OAuth.Core.Interfaces;
 using OAuth.MVC.Library.Filters;
 
 namespace OAuth.MVC.Sample.Controllers
@@ -8,16 +8,16 @@ namespace OAuth.MVC.Sample.Controllers
   [OAuthSecured]
   public class HomeController : Controller
   {
-    readonly TokenRepository repository;
+    readonly TokenRepository _repository;
 
     public HomeController(TokenRepository repository)
    {
-     this.repository = repository;
+     _repository = repository;
    }
 
     public ActionResult Index(IOAuthContext context)
     {
-      context.TokenSecret = repository.GetAccessToken(context.Token).TokenSecret;
+      context.TokenSecret = _repository.GetAccessToken(context.Token).TokenSecret;
       return Json(context);
     }
     [AcceptVerbs(HttpVerbs.Post)]

@@ -4,6 +4,8 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Web;
+using OAuth.Core;
+using OAuth.Core.Signing;
 
 namespace OAuth.Web
 {

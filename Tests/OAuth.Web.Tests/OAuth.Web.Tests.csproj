@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E6E80C62-49AB-462C-ADCF-72C35391389B}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -48,18 +48,21 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="xunit, Version=1.0.3.1299, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+    <Reference Include="xunit, Version=1.1.0.1323, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Lib\Gallio\Xunit\xunit.dll</HintPath>
+      <HintPath>..\..\Lib\xunit\xunit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HmacSha1SignatureGeneratorSpecifications.cs" />
-    <Compile Include="OAuthHttpWebRequestSpecifications.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="OAuthWebRequestSignerSpecifications.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\OAuth.Core\OAuth.Core.csproj">
+      <Project>{EB32621B-F70A-481C-9DF0-A7E69312C5C0}</Project>
+      <Name>OAuth.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\OAuth.Web\OAuth.Web.csproj">
       <Project>{B7C50FC5-DBD9-4360-B4B9-4D3CD8451AF0}</Project>
       <Name>OAuth.Web</Name>

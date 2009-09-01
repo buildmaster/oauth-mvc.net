@@ -1,11 +1,14 @@
 using System.Web;
+using OAuth.Core.Signing;
 using Xunit;
 
 namespace OAuth.Web.Tests
 {
+    // ReSharper disable InconsistentNaming
   public class HmacSha1SignatureGeneratorSpecifications
   {
     [Fact]
+
     public void signature_should_be_created_correctly()
     {
       var signatureGenerator = new HmacSha1SignatureGenerator();
@@ -45,8 +48,9 @@ namespace OAuth.Web.Tests
           var signatureGenerator = new HmacSha1SignatureGenerator();
           var signature = signatureGenerator.Generate("NDYWNGMZMZG5NWZHNDYZMJHIMTM4MD&",
                                                       "POST&http%3A%2F%2Fapi.xero.test%2Foauth%2FRequestToken&oauth_callback%3Dhttp%253A%252F%252Fapi.xero.test%252FTestHarness%252FAuthorised%26oauth_consumer_key%3DMJRMYWE1ODIWMMEZNGRKMGI5MDG0ZD%26oauth_nonce%3Dc7fef605-2f23-48f0-9b7a-ecca28c64941%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1249607199%26oauth_version%3D1.0");
-          Assert.Equal("", signature);
+          Assert.Equal("5+67gzbDtKOtv9QedcR0Y7x2OyY=", signature);
 
       }
   }
+  // ReSharper restore InconsistentNaming
 }

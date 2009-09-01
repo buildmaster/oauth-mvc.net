@@ -1,23 +1,23 @@
 using System.Net;
 using System.Web.Mvc;
-using DevDefined.OAuth.Framework;
+using OAuth.Core;
 
 namespace OAuth.MVC.Library.Results
 {
   public class OAuthExceptionResult:ActionResult
   {
-    private readonly OAuthException exception;
+    private readonly OAuthException _exception;
 
     public OAuthExceptionResult(OAuthException exception)
     {
-      this.exception = exception;
+      _exception = exception;
     }
 
     public override void ExecuteResult(ControllerContext context)
     {
       var response = context.HttpContext.Response;
       
-      switch (exception.Report.Problem)
+      switch (_exception.Report.Problem)
       {
 
         case OAuthProblems.ParameterRejected:
@@ -30,8 +30,8 @@ namespace OAuth.MVC.Library.Results
           break;
       }
       
-      response.AddHeader("WWW-Authenticate",string.Format("OAuth Realm=\"{0}\"",exception.Context.Realm));
-      response.Write(exception.Report.ToString());
+      response.AddHeader("WWW-Authenticate",string.Format("OAuth Realm=\"{0}\"",_exception.Context.Realm));
+      response.Write(_exception.Report.ToString());
     }
   }
 }

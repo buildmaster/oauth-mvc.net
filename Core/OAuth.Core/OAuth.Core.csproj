@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EB32621B-F70A-481C-9DF0-A7E69312C5C0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OAuth.Core</RootNamespace>
+    <AssemblyName>OAuth.Core</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccessDeniedException.cs" />
+    <Compile Include="AccessOutcome.cs" />
+    <Compile Include="CertificateUtility.cs" />
+    <Compile Include="DateTimeUtility.cs" />
+    <Compile Include="Error.cs" />
+    <Compile Include="Interfaces\IOAuthContext.cs" />
+    <Compile Include="Interfaces\IOAuthContextBuilder.cs" />
+    <Compile Include="Interfaces\IOAuthProvider.cs" />
+    <Compile Include="Interfaces\IToken.cs" />
+    <Compile Include="KeyInterop\AsnKeyParser.cs" />
+    <Compile Include="KeyInterop\BerDecodeException.cs" />
+    <Compile Include="KeyInterop\BigInteger.cs" />
+    <Compile Include="OAuthContext.cs" />
+    <Compile Include="OAuthContextBuilder.cs" />
+    <Compile Include="OAuthException.cs" />
+    <Compile Include="OAuthProblemReport.cs" />
+    <Compile Include="OAuthProblems.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Protocol.cs" />
+    <Compile Include="Provider\Inspectors\ConsumerValidationInspector.cs" />
+    <Compile Include="Provider\Inspectors\IContextInspector.cs" />
+    <Compile Include="Provider\Inspectors\NonceStoreInspector.cs" />
+    <Compile Include="Provider\Inspectors\SignatureValidationInspector.cs" />
+    <Compile Include="Provider\Inspectors\TimestampRangeInspector.cs" />
+    <Compile Include="Provider\OAuthProvider.cs" />
+    <Compile Include="SignatureMethod.cs" />
+    <Compile Include="SigningContext.cs" />
+    <Compile Include="Signing\HmacSha1SignatureGenerator.cs" />
+    <Compile Include="Signing\HmacSha1SignatureImplementation.cs" />
+    <Compile Include="Signing\IContextSignatureImplementation.cs" />
+    <Compile Include="Signing\IOAuthContextSigner.cs" />
+    <Compile Include="Signing\ISignatureGenerator.cs" />
+    <Compile Include="Signing\OAuthContextSigner.cs" />
+    <Compile Include="Signing\PlainTextSignatureImplementation.cs" />
+    <Compile Include="Signing\RsaSha1SignatureImplementation.cs" />
+    <Compile Include="Storage\Interfaces\IConsumerStore.cs" />
+    <Compile Include="Storage\Interfaces\INonceStore.cs" />
+    <Compile Include="Storage\Interfaces\ITokenStore.cs" />
+    <Compile Include="Storage\RequestForAccessStatus.cs" />
+    <Compile Include="TokenBase.cs" />
+    <Compile Include="UriUtility.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

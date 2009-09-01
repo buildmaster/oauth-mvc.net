@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ninject.Extensions.Wcf</name>
+    </assembly>
+    <members>
+        <member name="M:Ninject.Extensions.Wcf.NinjectServiceBehavior.Validate(System.ServiceModel.Description.ServiceDescription,System.ServiceModel.ServiceHostBase)">
+            <summary>
+            Provides the ability to inspect the service host and the service
+            description to confirm that the service can run successfully.
+            </summary>
+            <param name="serviceDescription">
+            The service description.
+            </param>
+            <param name="serviceHostBase">
+            The service host that is currently being constructed.
+            </param>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectServiceBehavior.AddBindingParameters(System.ServiceModel.Description.ServiceDescription,System.ServiceModel.ServiceHostBase,System.Collections.ObjectModel.Collection{System.ServiceModel.Description.ServiceEndpoint},System.ServiceModel.Channels.BindingParameterCollection)">
+            <summary>
+            Provides the ability to pass custom data to binding elements to
+            support the contract implementation.
+            </summary>
+            <param name="serviceDescription">
+            The service description of the service.
+            </param>
+            <param name="serviceHostBase">
+            The host of the service.
+            </param>
+            <param name="endpoints">
+            The service endpoints.
+            </param>
+            <param name="bindingParameters">
+            Custom objects to which binding elements have access.
+            </param>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectServiceBehavior.ApplyDispatchBehavior(System.ServiceModel.Description.ServiceDescription,System.ServiceModel.ServiceHostBase)">
+            <summary>
+            Provides the ability to change run-time property values or insert
+            custom extension objects such as error handlers, message or
+            parameter interceptors, security extensions, and other custom
+            extension objects.
+            </summary>
+            <param name="serviceDescription">
+            The service description.
+            </param>
+            <param name="serviceHostBase">
+            The host that is currently being built.
+            </param>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectWcfApplication.Application_Start(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Start event of the Application.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectWcfApplication.Session_Start(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Start event of the Session.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectWcfApplication.Application_BeginRequest(System.Object,System.EventArgs)">
+            <summary>
+            Handles the BeginRequest event of the Application.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectWcfApplication.Application_AuthenticateRequest(System.Object,System.EventArgs)">
+            <summary>
+            Handles the AuthenticateRequest event of the Application.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectWcfApplication.Application_Error(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Error event of the Application.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectWcfApplication.Session_End(System.Object,System.EventArgs)">
+            <summary>
+            Handles the End event of the Session.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectWcfApplication.Application_End(System.Object,System.EventArgs)">
+            <summary>
+            Handles the End event of the Application.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectWcfApplication.CreateKernel">
+            <summary>
+            Creates the kernel that will manage your application.
+            </summary>
+            <returns>The created kernel.</returns>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectWcfApplication.OnApplicationStarted">
+            <summary>
+            Called when the application is started.
+            </summary>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectWcfApplication.OnApplicationStopped">
+            <summary>
+            Called when the application is stopped.
+            </summary>
+        </member>
+        <member name="P:Ninject.Extensions.Wcf.NinjectWcfApplication.Kernel">
+            <summary>
+            Gets the kernel.
+            </summary>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectServiceHostFactory.CreateServiceHost(System.Type,System.Uri[])">
+            <summary>
+            Creates a <see cref="T:System.ServiceModel.ServiceHost"/> for a
+            specified type of service with a specific base address.
+            </summary>
+            <param name="serviceType">
+            Specifies the type of service to host.
+            </param>
+            <param name="baseAddresses">
+            The <see cref="T:System.Array"/> of type <see cref="T:System.Uri"/>
+            that contains the base addresses for the service hosted.
+            </param>
+            <returns>
+            A <see cref="T:System.ServiceModel.ServiceHost"/> for the type of
+            service specified with a specific base address.
+            </returns>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectServiceHost.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ninject.Extensions.Wcf.NinjectServiceHost"/> class.
+            </summary>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectServiceHost.#ctor(System.TypeCode)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ninject.Extensions.Wcf.NinjectServiceHost"/> class.
+            </summary>
+            <param name="serviceType">Type of the service.</param>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectServiceHost.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ninject.Extensions.Wcf.NinjectServiceHost"/> class.
+            </summary>
+            <param name="singletonInstance">The singleton instance.</param>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectServiceHost.#ctor(System.Type,System.Uri[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Ninject.Extensions.Wcf.NinjectServiceHost"/> class.
+            </summary>
+            <param name="serviceType">Type of the service.</param>
+            <param name="baseAddresses">The base addresses.</param>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectServiceHost.OnOpening">
+            <summary>
+            Invoked during the transition of a communication object into the opening state.
+            </summary>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectInstanceProvider.GetInstance(System.ServiceModel.InstanceContext)">
+            <summary>
+            Returns a service object given the specified <see
+            cref="T:System.ServiceModel.InstanceContext" /> object.
+            </summary>
+            <returns>
+            A user-defined service object.
+            </returns>
+            <param name="instanceContext">
+            The current <see cref="T:System.ServiceModel.InstanceContext" />
+            object.
+            </param>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectInstanceProvider.GetInstance(System.ServiceModel.InstanceContext,System.ServiceModel.Channels.Message)">
+            <summary>
+            Returns a service object given the specified <see
+            cref="T:System.ServiceModel.InstanceContext" /> object.
+            </summary>
+            <returns>
+            The service object.
+            </returns>
+            <param name="instanceContext">
+            The current <see cref="T:System.ServiceModel.InstanceContext" />
+            object.
+            </param>
+            <param name="message">
+            The message that triggered the creation of a service object.
+            </param>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.NinjectInstanceProvider.ReleaseInstance(System.ServiceModel.InstanceContext,System.Object)">
+            <summary>
+            Called when an <see cref="T:System.ServiceModel.InstanceContext" />
+            object recycles a service object.
+            </summary>
+            <param name="instanceContext">
+            The service's instance context.
+            </param>
+            <param name="instance">
+            The service object to be recycled.
+            </param>
+        </member>
+        <member name="T:Ninject.Extensions.Wcf.KernelContainer">
+            <summary>
+            A static container for the WCF services's kernel.
+            </summary>
+        </member>
+        <member name="M:Ninject.Extensions.Wcf.KernelContainer.Inject(System.Object)">
+            <summary>
+            Injects the specified instance by using the container's kernel.
+            </summary>
+            <param name="instance">The instance to inject.</param>
+        </member>
+        <member name="P:Ninject.Extensions.Wcf.KernelContainer.Kernel">
+            <summary>
+            Gets or sets the kernel that is used in the application.
+            </summary>
+        </member>
+    </members>
+</doc>

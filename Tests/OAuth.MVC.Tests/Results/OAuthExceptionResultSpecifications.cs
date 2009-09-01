@@ -3,27 +3,29 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using DevDefined.OAuth.Framework;
+using OAuth.Core;
+using OAuth.Core.Interfaces;
 using OAuth.MVC.Library.Results;
 using Rhino.Mocks;
 using Xunit;
 
 namespace OAuth.MVC.Tests.Results
 {
+    // ReSharper disable InconsistentNaming
   namespace OAuthExceptionResultSpecifications
   {
     public class ExceptionResultContext:IUseFixture<MockRepository>
     {
-      private IOAuthContext defaultContext;
-      private OAuthExceptionResult result;
-      private ControllerBase controller;
-      private HttpContextBase httpContext;
-      private RouteData routeData;
+      private IOAuthContext _defaultContext;
+      private OAuthExceptionResult _result;
+      private ControllerBase _controller;
+      private HttpContextBase _httpContext;
+      private RouteData _routeData;
       protected HttpResponseBase Response;
       protected HttpRequestBase Request;
-      private const string defaultRealm = "http://testauth.com";
-      private const string defaultProblem = OAuthProblems.SignatureInvalid;
-      private const string advice = "this is default advice for fixing the problem";
+      private const string DefaultRealm = "http://testauth.com";
+      private const string DefaultProblem = OAuthProblems.SignatureInvalid;
+      private const string AdviceString = "this is default Advice for fixing the problem";
 
       public virtual OAuthException Exception
       {
@@ -35,39 +37,41 @@ namespace OAuth.MVC.Tests.Results
 
       protected virtual string Advice
       {
-        get { return advice; }
+          get { return AdviceString; }
       }
 
-      protected virtual string DefaultProblem
+      protected virtual string Problem
       {
-        get { return defaultProblem; }
+          get { return DefaultProblem; }
       }
 
       protected virtual IOAuthContext Context
       {
-        get { return defaultContext; }
+        get { return _defaultContext; }
       }
       protected virtual string Realm
       {
-        get { return defaultRealm; }
+        get { return DefaultRealm; }
       }
       public void SetFixture(MockRepository mocks)
       {
-        defaultContext = mocks.DynamicMock<IOAuthContext>();
+        _defaultContext = mocks.DynamicMock<IOAuthContext>();
         Response = mocks.DynamicMock<HttpResponseBase>();
-        httpContext = mocks.DynamicMock<HttpContextBase>();
-        routeData = new RouteData();
-        controller = mocks.DynamicMock<ControllerBase>();
-        defaultContext.Stub(context => context.Realm).Return(Realm);
-        httpContext.Stub(context => context.Response).Return(Response);
-        var controllerContext = new ControllerContext(httpContext,routeData,controller);
-        result = new OAuthExceptionResult(Exception);
+        _httpContext = mocks.DynamicMock<HttpContextBase>();
+        _routeData = new RouteData();
+        _controller = mocks.DynamicMock<ControllerBase>();
+        _defaultContext.Stub(context => context.Realm).Return(Realm);
+        _httpContext.Stub(context => context.Response).Return(Response);
+        var controllerContext = new ControllerContext(_httpContext,_routeData,_controller);
+        _result = new OAuthExceptionResult(Exception);
 
         mocks.ReplayAll();
-        result.ExecuteResult(controllerContext);
+        _result.ExecuteResult(controllerContext);
       }
     }
+
     public class given_a_result_for_a_consumer_key_unknown_exception:ExceptionResultContext
+
     {
       [Fact]
       public void return_status_should_be_unauthorised()
@@ -158,4 +162,5 @@ namespace OAuth.MVC.Tests.Results
 
     }
   }
+  // ReSharper restore InconsistentNaming
 }
