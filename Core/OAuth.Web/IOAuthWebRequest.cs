@@ -20,5 +20,6 @@ namespace OAuth.Web
       string UserAgent { get; set; }
       int Timeout { get; set; }
       DecompressionMethods Compression { get; set; }
+      DateTime? IfModifiedSince { get; set; }
   }
 }

@@ -62,6 +62,10 @@ namespace OAuth.Web
                 if (request.Proxy != null)
                     httpWebRequest.Proxy = request.Proxy;
                 httpWebRequest.Method = request.Method;
+                if(request.IfModifiedSince.HasValue)
+                {
+                    httpWebRequest.IfModifiedSince = request.IfModifiedSince.Value;
+                }
                 if (request.Method == "POST" || request.Method == "PUT")
                 {
                     if (request.Form.Count > 0)
@@ -165,6 +169,11 @@ namespace OAuth.Web
         }
         public override sealed int Timeout { get; set; }
         public DecompressionMethods Compression
+        {
+            get; set;
+        }
+
+        public DateTime? IfModifiedSince
         {
             get; set;
         }
