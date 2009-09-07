@@ -69,6 +69,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\OAuthExceptionResult.cs" />
     <Compile Include="Results\OAuthTokenResult.cs" />
+    <Compile Include="Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OAuth.Core\OAuth.Core.csproj">
@@ -79,6 +84,13 @@
       <Project>{B7C50FC5-DBD9-4360-B4B9-4D3CD8451AF0}</Project>
       <Name>OAuth.Web</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configuration\" />
