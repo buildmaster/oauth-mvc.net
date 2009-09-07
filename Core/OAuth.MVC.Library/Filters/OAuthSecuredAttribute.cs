@@ -34,9 +34,8 @@ namespace OAuth.MVC.Library.Filters
     }
     public override void OnResultExecuted(ResultExecutedContext filterContext)
     {
-      var context = OAuthContextBuilder.FromHttpRequest(filterContext.HttpContext.Request);
       var response = filterContext.HttpContext.Response;
-      var header = string.Format("OAuth Realm=\"{0}\"", context.Realm);
+      var header = string.Format("OAuth Realm=\"{0}\"", Settings.Default.Realm);
       response.AddHeader("WWW-Authenticate",header);
     }
   }
