@@ -61,7 +61,7 @@ namespace OAuth.Web
                     httpWebRequest.Timeout = request.Timeout;
                 if (request.Proxy != null)
                     httpWebRequest.Proxy = request.Proxy;
-                httpWebRequest.Method = request.Method;
+                httpWebRequest.Method = request.Method??"GET";
                 if(request.IfModifiedSince.HasValue)
                 {
                     httpWebRequest.IfModifiedSince = request.IfModifiedSince.Value;
@@ -117,6 +117,7 @@ namespace OAuth.Web
         }
         public override WebResponse GetResponse()
         {
+            this.Method = Method ?? "GET";
             _signer.SignWebRequest(this);
             return _httpWebRequestFactory.Create(this);
         }
