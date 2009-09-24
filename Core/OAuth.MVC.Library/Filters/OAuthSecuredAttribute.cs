@@ -7,6 +7,9 @@ using OAuth.MVC.Library.Results;
 
 namespace OAuth.MVC.Library.Filters
 {
+  /// <summary>
+  /// When applied to a controller or action method, requires that users be authenticated via OAuth.
+  /// </summary>
   public class OAuthSecuredAttribute : ActionFilterAttribute, IAuthorizationFilter
   {
 

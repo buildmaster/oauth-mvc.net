@@ -4,10 +4,17 @@ using OAuth.Core;
 
 namespace OAuth.MVC.Library.Results
 {
+  /// <summary>
+  /// Class used to send an OAuth related error message to the response.
+  /// </summary>
   public class OAuthExceptionResult:ActionResult
   {
     private readonly OAuthException _exception;
 
+    /// <summary>
+    /// Creates an ActionResult for the error specified in a particular <see cref="OAuthException" />.
+    /// </summary>
+    /// <param name="exception"></param>
     public OAuthExceptionResult(OAuthException exception)
     {
       _exception = exception;

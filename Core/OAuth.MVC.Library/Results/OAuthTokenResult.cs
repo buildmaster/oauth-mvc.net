@@ -5,10 +5,17 @@ using OAuth.Core.Interfaces;
 
 namespace OAuth.MVC.Library.Results
 {
+  /// <summary>
+  /// Class used to send an OAuth token to the response.
+  /// </summary>
   public class OAuthTokenResult:ActionResult
   {
     internal readonly IToken Token;
 
+    /// <summary>
+    /// Creates an ActionResult built around a particular OAuth token.
+    /// </summary>
+    /// <param name="token"></param>
     public OAuthTokenResult(IToken token)
     {
       Token = token;
