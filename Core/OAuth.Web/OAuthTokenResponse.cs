@@ -1,47 +1,47 @@
-using System;
+using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 
 namespace OAuth.Web
 {
-  public class OAuthTokenResponse
-  {
-    public OAuthTokenResponse(WebResponse httpWebResponse)
+    public class OAuthTokenResponse
     {
-      string tokenString;
-        using(var stream = httpWebResponse.GetResponseStream())
+        public OAuthTokenResponse(WebResponse httpWebResponse)
         {
-          var reader = new StreamReader(stream);
-           tokenString = reader.ReadToEnd();
-          reader.Close();
-        }
-      if(!string.IsNullOrEmpty(tokenString))
-      {
-        var parts = tokenString.Split('&');
-        if(parts.Length>2)
-        {
-            var token = new OAuthToken();
-            foreach(var part in parts)
+            using (var stream = httpWebResponse.GetResponseStream())
             {
-                var tokenparts = part.Split('=');
-                if(tokenparts.Length==2)
-                {
-                    if(tokenparts[0].Equals("oauth_token",StringComparison.OrdinalIgnoreCase))
-                    {
-                        token.Token = tokenparts[1];    
-                       }
-                    else if (tokenparts[0].Equals("oauth_token_secret", StringComparison.OrdinalIgnoreCase))
-                    {
-                        token.TokenSecret = tokenparts[1];    
-                    }
-                }
-
+                var reader = new StreamReader(stream);
+                ResponseBody = reader.ReadToEnd();
+                reader.Close();
             }
-          
-        }
-      }
-    }
 
-    public OAuthToken Token { get; set; }
-  }
+            if (string.IsNullOrEmpty(ResponseBody))
+            {
+                return;
+            }
+
+            Items = new NameValueCollection();
+
+            foreach (string item in ResponseBody.Split('&'))
+            {
+                if (item.IndexOf('=') > -1)
+                {
+                    string[] temp = item.Split('=');
+                    Items.Add(temp[0], temp[1]);
+                }
+                else
+                {
+                    Items.Add(item, string.Empty);
+                }
+            }
+
+            Token = new OAuthToken() { Token = Items["oauth_token"], TokenSecret = Items["oauth_token_secret"] };
+        }
+
+        public string ResponseBody { get; private set; }
+
+        public NameValueCollection Items { get; private set; }
+
+        public OAuthToken Token { get; private set; }
+    }
 }
