@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using OAuth.Core;
 using OAuth.Core.Interfaces;
+using OAuth.MVC.Library;
 using OAuth.MVC.Library.Filters;
 using OAuth.MVC.Library.Results;
 using Rhino.Mocks;
@@ -126,7 +127,7 @@ namespace OAuth.MVC.Tests.Filters
     {
       private readonly NameValueCollection DefaultHeaders = new NameValueCollection();
       protected HttpResponseBase mockResponse;
-      protected const string DefaultRealm = "http://testurl.com";
+      protected string DefaultRealm = Settings.Default.Realm;
       protected IOAuthContext oauthContext;
       protected IOAuthContextBuilder contextBuilder;
       public void SetFixture(MockRepository mocks)
