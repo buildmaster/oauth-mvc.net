@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using OAuth.Core;
 using OAuth.Core.Interfaces;
+using OAuth.MVC.Library;
 using OAuth.MVC.Library.Results;
 using Rhino.Mocks;
 using Xunit;
@@ -86,7 +87,7 @@ namespace OAuth.MVC.Tests.Results
       [Fact]
       public void oauth_header_should_be_set()
       {
-        Response.AssertWasCalled(response=>response.AddHeader("WWW-Authenticate",String.Format("OAuth Realm=\"{0}\"",Realm)));
+        Response.AssertWasCalled(response=>response.AddHeader("WWW-Authenticate",String.Format("OAuth Realm=\"{0}\"",Settings.Default.Realm)));
       }
       public override OAuthException Exception
       {
